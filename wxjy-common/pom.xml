@@ -160,6 +160,12 @@
             <artifactId>hibernate-validator</artifactId>
             <version>4.3.1.Final</version>
         </dependency>
+        
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
 
         <dependency>
@@ -540,28 +546,11 @@
             <version>3.1.8</version>
         </dependency>
 
-
-        <!-- swagger-springmvc dependencies -->
-
-
-        <!--
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.4.0</version>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.20</version>
         </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.4.0</version>
-        </dependency>
-
-        <dependency>  
-            <groupId>com.google.guava</groupId>  
-            <artifactId>guava</artifactId>  
-            <version>15.0</version>  
-        </dependency>  
-        -->
 
         <!-- jackson -->
         <dependency>
@@ -613,6 +602,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.htmlparser</groupId>
+            <artifactId>htmlparser</artifactId>
+            <version>2.1</version>
         </dependency>
 
         <!-- javax.servlet -->

@@ -7,20 +7,20 @@ public class ArrayUtils {
   public ArrayUtils() {
   }
 
-  public static int find(byte src[], byte dest[], int offset) {
+  public static int find(byte[] src, byte[] dest, int offset) {
 
     return find(src, 0, src.length, dest, 0, dest.length, offset);
   }
 
-  public static int find(byte src[], byte dest[]) {
+  public static int find(byte[] src, byte[] dest) {
     return find(src, 0, src.length, dest, 0, dest.length, 0);
   }
 
-  public static int find2(byte src[], byte dest[], int offset) {
+  public static int find2(byte[] src, byte[] dest, int offset) {
     return find2(src, 0, src.length, dest, 0, dest.length, offset);
   }
 
-  public static int findStr(byte src[], String dest) {
+  public static int findStr(byte[] src, String dest) {
     if (null == dest) {
       return -1;
     }
@@ -28,7 +28,7 @@ public class ArrayUtils {
                 0);
   }
 
-  public static int findStr(byte src[], String dest, int offset) {
+  public static int findStr(byte[] src, String dest, int offset) {
     if (null == dest) {
       return -1;
     }
@@ -36,7 +36,7 @@ public class ArrayUtils {
                 offset);
   }
 
-  public static final byte[] replaceStr(byte src[], String oldPattern,
+  public static final byte[] replaceStr(byte[] src, String oldPattern,
                                         String newPattern) {
     if (src==null) {
       return null;
@@ -51,8 +51,8 @@ public class ArrayUtils {
     return StringUtils.replace(new String(src), oldPattern, newPattern).getBytes();
   }
 
-  public static final byte[] replace(byte src[], byte oldPattern[],
-                                     byte newPattern[]) {
+  public static final byte[] replace(byte[] src, byte[] oldPattern,
+                                     byte[] newPattern) {
 
     if (src == null) {
       return null;
@@ -60,13 +60,13 @@ public class ArrayUtils {
     int cur = 0;
     int newCur = 0;
     if ( (cur = find(src, oldPattern, cur)) >= 0) {
-      byte srcTemp[] = src;
-      byte newTemp[] = newPattern;
+      byte[] srcTemp = src;
+      byte[] newTemp = newPattern;
       int ol = oldPattern.length;
       int nl = newPattern.length;
       int dl = newPattern.length - ol;
-      byte temp[] = new byte[srcTemp.length *
-          (newPattern.length / oldPattern.length + 1)];
+      byte[] temp = new byte[srcTemp.length *
+              (newPattern.length / oldPattern.length + 1)];
       System.arraycopy(srcTemp, 0, temp, 0, cur);
       System.arraycopy(newTemp, 0, temp, cur, newTemp.length);
       cur += ol;
@@ -83,7 +83,7 @@ public class ArrayUtils {
       }
       System.arraycopy(srcTemp, srcCur, temp, newCur, srcTemp.length - srcCur);
       newCur += srcTemp.length - srcCur;
-      byte result[] = new byte[newCur];
+      byte[] result = new byte[newCur];
       System.arraycopy(temp, 0, result, 0, newCur);
       return result;
     }
@@ -92,8 +92,8 @@ public class ArrayUtils {
     }
   }
 
-  public static final byte[] replace2(byte src[], byte oldPattern[],
-                                      byte newPattern[]) {
+  public static final byte[] replace2(byte[] src, byte[] oldPattern,
+                                      byte[] newPattern) {
     if (src == null) {
       return null;
     }
@@ -101,13 +101,13 @@ public class ArrayUtils {
     int newCur = 0;
     if ( (cur = find2(src, oldPattern,
                       cur)) >= 0) {
-      byte srcTemp[] = src;
-      byte newTemp[] = newPattern;
+      byte[] srcTemp = src;
+      byte[] newTemp = newPattern;
       int ol = oldPattern.length;
       int nl = newPattern.length;
       int dl = newPattern.length - ol;
-      byte temp[] = new byte[srcTemp.length *
-          (newPattern.length / oldPattern.length + 1)];
+      byte[] temp = new byte[srcTemp.length *
+              (newPattern.length / oldPattern.length + 1)];
       System.arraycopy(srcTemp, 0, temp, 0, cur);
       System.arraycopy(newTemp, 0, temp, cur,
                        nl);
@@ -130,7 +130,7 @@ public class ArrayUtils {
       System.arraycopy(srcTemp, srcCur, temp,
                        newCur, srcTemp.length - srcCur);
       newCur += srcTemp.length - srcCur;
-      byte result[] = new byte[newCur];
+      byte[] result = new byte[newCur];
       System.arraycopy(temp, 0, result, 0, newCur);
       return result;
     }
@@ -139,7 +139,7 @@ public class ArrayUtils {
     }
   }
 
-  private static int find(byte src[], int srcBegin, int srcLength, byte dest[],
+  private static int find(byte[] src, int srcBegin, int srcLength, byte[] dest,
                           int destBegin, int destLength, int offset) {
 
     if (offset >= srcLength) {
@@ -200,8 +200,8 @@ public class ArrayUtils {
     while (true);
   }
 
-  private static int find2(byte src[], int srcBegin,
-                           int srcLength, byte dest[],
+  private static int find2(byte[] src, int srcBegin,
+                           int srcLength, byte[] dest,
                            int destBegin, int destLength,
                            int offset) {
     int lt = 60; //"<"

@@ -11,7 +11,7 @@ public class StringUtil {
 
 	/**
 	 * 是否特殊字符
-	 * @param cn
+	 * @param ch
 	 * @return
 	 */
 	public static boolean isValidChar(char ch) {
@@ -66,7 +66,7 @@ public class StringUtil {
 
 	/**
 	 * 过滤xml的特殊字符
-	 * @param val
+	 * @param xmlString
 	 * @return
 	 */
 	public static String encodeXML(String xmlString) {
@@ -171,10 +171,7 @@ public class StringUtil {
 	//}
 	
 	public static boolean isEmpty(String str) {
-        if (str == null || str.length() == 0) {
-            return true;
-        }
-        return false;
+        return str == null || str.length() == 0;
     }
 
     public static boolean isNotEmpty(String str) {

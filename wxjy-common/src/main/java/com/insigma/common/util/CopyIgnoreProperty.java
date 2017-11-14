@@ -75,7 +75,7 @@ public class CopyIgnoreProperty extends CopyEventBean{
 				for (int j = 0; j < toProperties.length; j++){
 					if (fromProperties[i].getName().equals(toProperties[j].getName())) {
 						Object fromValue=fromProperties[i].getReadMethod().invoke(fromObj,new Object[] {});
-						if(fromValue!=null&&!fromValue.toString().equalsIgnoreCase("")){
+						if(fromValue!=null&&!"".equalsIgnoreCase(fromValue.toString())){
 							if (isBasicClass(fromProperties[i].getPropertyType())&& isBasicClass(toProperties[j].getPropertyType())&& fromProperties[i].getPropertyType() == toProperties[j].getPropertyType()){
 								toProperties[j].getWriteMethod().invoke(toObj,new Object[] { fromValue });
 								break;
@@ -173,7 +173,7 @@ public class CopyIgnoreProperty extends CopyEventBean{
 				Integer toPropertieSize=0;
 				String Property= toPropertie.getName();
 		    	Object fromValue=fromHashMap.get(Property);
-				if(fromValue!=null&&!fromValue.toString().equalsIgnoreCase("")){
+				if(fromValue!=null&&!"".equalsIgnoreCase(fromValue.toString())){
 					    if(hashMapSize.toString().equals(toPropertieSize.toString())){
 					    	return;
 					    }
@@ -347,7 +347,7 @@ public class CopyIgnoreProperty extends CopyEventBean{
 				for ( ; i < toProperties.length; )
 				{
 					Object fromValue=fromObj;
-					if(fromValue!=null&&!fromValue.toString().equalsIgnoreCase("")){
+					if(fromValue!=null&&!"".equalsIgnoreCase(fromValue.toString())){
 						if (isBasicClass(fromValue.getClass())&& isBasicClass(toProperties[i].getPropertyType())&& fromValue.getClass() == toProperties[i].getPropertyType()){
 							toProperties[i].getWriteMethod().invoke(toObj,new Object[] { fromValue });
 							break;

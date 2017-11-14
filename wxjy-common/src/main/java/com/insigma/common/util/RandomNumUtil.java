@@ -10,12 +10,13 @@ public class RandomNumUtil{
 	 * @return
 	 */
 	public static String getRandomNum(int size){
-		String sid="";
+		StringBuffer sb = new StringBuffer();
+		Random r = new Random();
 		for(int i=0;i<size;i++){
-			int random=(int)(Math.random()*10);
-			sid += random;
+			int random = r.nextInt(10);
+			sb.append(random);
 		}
-		return sid;
+		return sb.toString();
 	}
 
 	public static String getRandomString(int length) { //length表示生成字符串的长度

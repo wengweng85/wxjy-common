@@ -14,9 +14,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-
 public class ImageUtil {
-
 
 	/**
 	 * 得到图片长度
@@ -26,7 +24,7 @@ public class ImageUtil {
 	public static String getImgWidth(File file){
 		try{
 			BufferedImage bufferedImage = ImageIO.read(file);
-			return new Integer(bufferedImage.getWidth()).toString();
+			return Integer.toString(bufferedImage.getWidth());
 		}catch (IOException e){
 			return "";
 		}
@@ -40,7 +38,7 @@ public class ImageUtil {
 	public static String getImgHeight(File file) {
 		try{
 			BufferedImage bufferedImage = ImageIO.read(file);
-			return new Integer(bufferedImage.getHeight()).toString();
+			return Integer.toString(bufferedImage.getHeight());
 		}catch (IOException e){
 			return "";
 		}
@@ -124,23 +122,23 @@ public class ImageUtil {
 	 * 重新生成按指定宽度和高度的图像
 	 * @param srcImageFile       源图像文件地址
 	 * @param result             新的图像地址
-	 * @param _width             设置新的图像宽度
-	 * @param _height            设置新的图像高度
+	 * @param new_width             设置新的图像宽度
+	 * @param new_height            设置新的图像高度
 	 */
-	public static void scale(String srcImageFile, String result, int _width,int _height) {
-		scale(srcImageFile,result,_width,_height,0,0);
+	public static void scale(String srcImageFile, String result, int new_width,int new_height) {
+		scale(srcImageFile,result,new_width,new_height,0,0);
 	}
 
 	/**
 	 * 重新生成按指定宽度和高度的图像
 	 * @param srcImageFile       源图像文件地址
 	 * @param result             新的图像地址
-	 * @param _width             设置新的图像宽度
-	 * @param _height            设置新的图像高度
+	 * @param new_width             设置新的图像宽度
+	 * @param new_height            设置新的图像高度
 	 * @param x                  x
 	 * @param y                  y
 	 */
-	public static void scale(String srcImageFile, String result, int _width,int _height,int x,int y) {
+	public static void scale(String srcImageFile, String result, int new_width,int new_height,int x,int y) {
 		try {
 
 			BufferedImage src = ImageIO.read(new File(srcImageFile)); // 读入文件
@@ -148,11 +146,11 @@ public class ImageUtil {
 			int width = src.getWidth(); // 得到源图宽
 			int height = src.getHeight(); // 得到源图长
 
-			if (width > _width) {
-				width = _width;
+			if (width > new_width) {
+				width = new_width;
 			}
-			if (height > _height) {
-				height = _height;
+			if (height > new_height) {
+				height = new_height;
 			}
 			Image image = src.getScaledInstance(width, height,Image.SCALE_DEFAULT);
 			BufferedImage tag = new BufferedImage(width, height,BufferedImage.TYPE_INT_RGB);

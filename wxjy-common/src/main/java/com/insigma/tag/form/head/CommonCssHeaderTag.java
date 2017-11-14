@@ -51,13 +51,16 @@ public class CommonCssHeaderTag implements Tag  {
 	  
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css' rel='stylesheet'>");
 	  
+	  sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/bootstrap3-editable/css/bootstrap-editable.css' rel='stylesheet'>");
+	    
 	  //<!-- rc.css -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/rc.css' rel='stylesheet'>");
 	  
 	  sb.append("<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->");
+	  sb.append("<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->");
 	  sb.append("<!--[if lt IE 9]>");
-	  sb.append("<script src=\"http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js\"></script>");
-	  sb.append("<script src=\"http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js\"></script>");
+	  sb.append("<script src=\"http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js\"></script>");
+	  sb.append("<script src=\"http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js\"></script>");
 	  sb.append("<![endif]-->");
 	  
 	  //以下js要在页面加载前加载

@@ -14,7 +14,7 @@ public class IPSeekerUtil {
 	 * @return
 	 */
     public String getIpCountry(String ipaddress){
-        if(!ipaddress.equals("")){
+        if(!"".equals(ipaddress)){
             IPSeeker ipseeker=new IPSeeker();
             return ipseeker.getIPLocation(ipaddress).getCountry();
         }else{
@@ -29,7 +29,7 @@ public class IPSeekerUtil {
     * @return
     */
     public  String getIpArea(String ipaddress){
-        if(!ipaddress.equals("")) {
+        if(!"".equals(ipaddress)) {
             IPSeeker ipseeker = new IPSeeker();
             return ipseeker.getIPLocation(ipaddress).getArea();
         }else{

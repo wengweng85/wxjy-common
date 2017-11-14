@@ -17,13 +17,14 @@ public class CustomizedPropertyConfigurer extends PropertyPlaceholderConfigurer 
 
     private static Map<String, Object> ctxPropertiesMap;
 
-    private static  Log log= LogFactory.getLog(CustomizedPropertyConfigurer.class);
+    private static Log log = LogFactory.getLog(CustomizedPropertyConfigurer.class);
+
     @Override
-    protected void processProperties(ConfigurableListableBeanFactory beanFactory, Properties props)throws BeansException {
+    protected void processProperties(ConfigurableListableBeanFactory beanFactory, Properties props) throws BeansException {
 
         super.processProperties(beanFactory, props);
         //load properties to ctxPropertiesMap
-        ctxPropertiesMap = new HashMap<String, Object>();
+        ctxPropertiesMap = new HashMap<>(20);
         for (Object key : props.keySet()) {
             String keyStr = key.toString();
             String value = props.getProperty(keyStr);
@@ -33,10 +34,10 @@ public class CustomizedPropertyConfigurer extends PropertyPlaceholderConfigurer 
 
     //static method for accessing context properties
     public static String getContextProperty(String name) {
-        String result="";
-        try{
-            result=ctxPropertiesMap.get(name).toString();
-        }catch (Exception e){
+        String result = "";
+        try {
+            result = ctxPropertiesMap.get(name).toString();
+        } catch (Exception e) {
             e.printStackTrace();
             log.error(e.getMessage());
         }

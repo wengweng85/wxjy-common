@@ -10,16 +10,16 @@ public class AjaxReturnMsg<T> implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String syscode; //系统返回状态码,默认200
-	private String success; //业务状态码，默认为true
-	private String message; //业务状态中文说
+	private String syscode; // 系统返回状态码,默认200
+	private String success; // 业务状态码，默认为true
+	private String message = ""; // 业务状态中文说明
 	
-	private T obj;//对象
-	private Long total;//分页面对象之总数
+	private T obj; //对象
+	private Long total; //分页面对象之总数
 	
 	public AjaxReturnMsg(){
-		this.syscode=SysCode.SYS_CODE_200.getCode();//系统返回状态码,默认200
-		this.success="true";//业务状态码，默认为true
+		this.syscode=SysCode.SYS_CODE_200.getCode(); // 系统返回状态码,默认200
+		this.success="true"; // 业务状态码，默认为true
 	}
 	
 	public Long getTotal() {

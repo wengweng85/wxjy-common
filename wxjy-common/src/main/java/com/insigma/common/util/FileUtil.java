@@ -1,5 +1,6 @@
 package com.insigma.common.util;
 
+import com.insigma.resolver.AppException;
 import org.apache.commons.lang.StringUtils;
 import org.xhtmlrenderer.pdf.ITextFontResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
@@ -342,11 +343,11 @@ public class FileUtil {
 	public static double getFileSize(String fileName,String cal_Sign){
 		
 		long sign = 1;
-		if (cal_Sign.equals("K")){
+		if ("K".equals(cal_Sign)){
 			sign = sign*1024;
-		} else if (cal_Sign.equals("M")){
+		} else if ("M".equals(cal_Sign)){
 			sign = sign*1024*1024;
-		}else if (cal_Sign.equals("G")){
+		}else if ("G".equals(cal_Sign)){
 			sign = sign*1024*1024*1024;
 		}
 		File file = new File(fileName);
@@ -481,8 +482,9 @@ public class FileUtil {
         int readChars = 0;
         while ((readChars = is.read(c)) != -1) {
             for (int i = 0; i < readChars; ++i) {
-                if (c[i] == '\n')
-                    ++count;
+                if (c[i] == '\n') {
+					++count;
+				}
             }
         }
         is.close();
@@ -636,8 +638,9 @@ public class FileUtil {
 		
 		/* 将生成的内容写入临时.html中 */
 		File htmlfile = File.createTempFile("contractTemplate", ".html");
-		if (!htmlfile.exists())
+		if (!htmlfile.exists()) {
 			htmlfile.createNewFile();
+		}
 		// Writer out = new FileWriter(file);
 		Writer out = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream(htmlfile), "utf-8"));
@@ -742,8 +745,9 @@ public class FileUtil {
 		
 		/* 将生成的内容写入临时.html中 */
 		File htmlfile = File.createTempFile("contractTemplate", ".html");
-		if (!htmlfile.exists())
+		if (!htmlfile.exists()) {
 			htmlfile.createNewFile();
+		}
 		// Writer out = new FileWriter(file);
 		Writer out = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream(htmlfile), "utf-8"));
@@ -793,10 +797,12 @@ public class FileUtil {
 	    while ((bytesRead = bis.read(buff, 0, buff.length)) != -1) {
 	         bos.write(buff,0,bytesRead);
 	    }
-	    if (bis != null)
-	        bis.close();
-	    if (bos != null)
-	        bos.close();
+	    if (bis != null) {
+			bis.close();
+		}
+	    if (bos != null) {
+			bos.close();
+		}
 		
 		//System.out.println("转换成功！");
 		os.close();
@@ -937,8 +943,76 @@ public class FileUtil {
         e.printStackTrace();
     }*/
 	}
-	
-	
+
+
+	/**
+	 * 根据ftl模板生成并下载WORD文件
+	 * @param request
+	 * @param response
+	 * @param dataMap     数据
+	 * @param FileName 文件名称
+	 * @param ftlPath  ftl模板所在文件夹路径
+	 * @param ftlName  ftl模板名称
+	 * @throws Exception
+	 */
+	public static void downWordFile(HttpServletRequest request,HttpServletResponse response,Map<String, Object> dataMap,
+									String FileName,String ftlPath,String ftlName) throws Exception{
+		String basePath = request.getSession().getServletContext().getRealPath("/");
+
+		/* 创建配置 */
+		Configuration cfg = new Configuration();
+		/* 指定模板存放的路径 */
+		//cfg.setDirectoryForTemplateLoading(new File(basePath + "/WEB-INF/ftl"));
+		cfg.setDirectoryForTemplateLoading(new File(basePath + ftlPath));
+		cfg.setDefaultEncoding("UTF-8");
+		// cfg.setObjectWrapper(new DefaultObjectWrapper());
+
+		/* 从上面指定的模板目录中加载对应的模板文件 */
+		// contractTemplate
+		Template temp = cfg.getTemplate(ftlName);
+
+		//输出文档路径及名称
+		File finalFile = File.createTempFile("contractTemplate", ".doc");
+		String wordFile = finalFile.getPath(); // 文件生成路径
+
+		File outFile = new File(wordFile);
+		Writer out = null;
+		FileOutputStream fos=null;
+		fos = new FileOutputStream(outFile);
+		OutputStreamWriter oWriter = new OutputStreamWriter(fos,"UTF-8");
+		//这个地方对流的编码不可或缺，使用main（）单独调用时，应该可以，但是如果是web请求导出时导出后word文档就会打不开，并且包XML文件错误。主要是编码格式不正确，无法解析。
+		//out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile)));
+		out = new BufferedWriter(oWriter);
+		temp.process(dataMap, out);
+		out.flush();
+		out.close();
+		fos.close();
+
+		//download file
+
+		//新建一个2048字节的缓冲区
+		response.setHeader("Content-disposition","attachment; filename="+ new String(FileName.getBytes("GBK"),"iso-8859-1"));
+		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(finalFile));
+		BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+		//新建一个2048字节的缓冲区
+		byte[] buff = new byte[2048];
+		int bytesRead=0;
+		while ((bytesRead = bis.read(buff, 0, buff.length)) != -1) {
+			bos.write(buff,0,bytesRead);
+		}
+		if (bis != null) {
+			bis.close();
+		}
+		if (bos != null) {
+			bos.close();
+		}
+
+		//System.out.println("转换成功！");
+		//删除临时文件
+		finalFile.delete();
+	}
+
+
 	
 	
     /**

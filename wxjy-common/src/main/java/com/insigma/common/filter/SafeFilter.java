@@ -48,7 +48,7 @@ public class SafeFilter implements javax.servlet.Filter {
        
         boolean isignore=false;
         String requesturi=request.getRequestURI();
-        if(ignorurlpattern!=null&&!ignorurlpattern.equals("")){
+        if(ignorurlpattern!=null&&!"".equals(ignorurlpattern)){
         	 for(int i=0;i<ignorurlpattern.length;i++){
                  if(requesturi.matches(ignorurlpattern[i])){
                 	 isignore=true;

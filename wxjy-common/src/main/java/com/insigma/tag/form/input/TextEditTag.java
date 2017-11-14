@@ -240,7 +240,7 @@ public class TextEditTag implements Tag {
 	     max=(max==null)?"":max;
 	     min=(min==null)?"":min;
 	     
-	     if(!(type.equals("text")||type.equals("password")||type.equals("number"))){
+	     if(!("text".equals(type) || "password".equals(type) || "number".equals(type))){
 	    	 throw new JspException("rc:textedit标签类型只能为text或password,请确认");
 	     }
 	     
@@ -263,16 +263,16 @@ public class TextEditTag implements Tag {
 		 if(isreadonly){
 			 sb.append(" readonly=\"readonly\" ");
 		 }
-		 if(!datamask.equals("")){
-			 sb.append(" data-mask=\""+datamask+"\" ");
+		 if(!"".equals(datamask)){
+			 sb.append(" data-inputmask=\""+datamask+"\" ");
 		 }
-		 if(!maxlength.equals("")){
+		 if(!"".equals(maxlength)){
 			 sb.append(" maxlength=\""+maxlength+"\" ");
 		 }
-		 if(!max.equals("")){
+		 if(!"".equals(max)){
 			 sb.append(" max=\""+max+"\" ");
 		 }
-		 if(!min.equals("")){
+		 if(!"".equals(min)){
 			 sb.append(" min=\""+min+"\" ");
 		 }
 		 //onclick事件

@@ -8,7 +8,8 @@ public class ServletContextUtil implements ServletContextAware{
 
 	private ServletContext servletContext;   
 	  
-	public void setServletContext(ServletContext sc) {   
+	@Override
+    public void setServletContext(ServletContext sc) {
 	    this.servletContext = sc;   
 	}
 	

@@ -8,6 +8,7 @@ public class DwrDragView{
     
     public static void sendMsg(final String msg) throws Exception{
     	Browser.withAllSessions(new Runnable(){ 
+            @Override
             public void run(){
                 ScriptSessions.addFunctionCall("show", msg);
                 }

@@ -134,7 +134,7 @@ public class RadioEditTag implements Tag {
 					 String id="inlineCheckbox1_"+UUID.randomUUID();
 					 sb.append("<div class=\"radio radio-info radio-inline\">");
 					 sb.append("<input name=\""+property+"\" type=\"radio\" id=\""+id+"\" value=\""+codevalue.getCode_value()+"\"");
-					 if (value != null && !value.equals("")) {
+					 if (value != null && !"".equals(value)) {
 							if (value.equals(codevalue.getCode_value())) {
 								sb.append(" checked=\"checked\" ");
 							}

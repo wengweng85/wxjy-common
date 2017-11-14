@@ -33,7 +33,7 @@ public final class CSRFTokenManager {
     public static String getTokenFromRequest(HttpServletRequest request) {
         String csrf= request.getParameter(CSRF_PARAM_NAME);
         log.info("csrf getParameter:"+csrf);
-        if(csrf==null||csrf.equals("")){
+        if(csrf==null|| "".equals(csrf)){
             csrf=request.getHeader("RequestVerificationToken");
         }
         log.info("request.getHeader:RequestVerificationToken:"+request.getHeader("RequestVerificationToken"));

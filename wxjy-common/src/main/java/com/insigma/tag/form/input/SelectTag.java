@@ -35,6 +35,9 @@ public class SelectTag implements Tag {
 				
 	//占位列数,包括label的一列
 	private String cols;
+	
+	//显示列数
+	private String size;
 
     //是否必输
     private String required;
@@ -71,8 +74,17 @@ public class SelectTag implements Tag {
 	private String onkeyup;
 	
 	
+	
 
 	
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
 	public String getReadonly() {
 		return readonly;
 	}
@@ -227,6 +239,7 @@ public class SelectTag implements Tag {
 		 codetype=(codetype==null)?"":codetype;
 		 filter=(filter==null)?"":filter;
 		 cols=(cols==null)?"1,2":cols;
+		 size=(size==null)?"8":size;
 		 
 		 String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
@@ -243,7 +256,7 @@ public class SelectTag implements Tag {
 	     }
 	     sb.append("</label>");
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
-		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  title=\"请选择"+label+"\" value=\"" + value+ "\"  selectOnTab=\"true\" data-actions-box=\"true\" data-size=\"10\"  data-live-search=\"true\" validate=\"" + validate+ "\"   data-selected-text-format=\"count > 2\"");
+		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  title=\"请选择"+label+"\" value=\"" + value+ "\"  selectOnTab=\"true\" data-actions-box=\"true\" data-size=\""+size+"\"  data-live-search=\"true\" validate=\"" + validate+ "\"   data-selected-text-format=\"count > 2\"");
 		 
 		 if(isreadonly){
 			 sb.append(" disabled ");
@@ -279,7 +292,7 @@ public class SelectTag implements Tag {
 		sb.append(">");
 		
 		//如果codetype不为空且过滤条件为空
-		if(!codetype.equals("")&&filter.equals("")){
+		if(!"".equals(codetype) && "".equals(filter)){
 			// 从EhCache获取下载
 			Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype.toUpperCase());
 			if (element != null) {
@@ -287,7 +300,7 @@ public class SelectTag implements Tag {
 				//sb.append("<option value=\"\"></option> ");
 				for (CodeValue codevalue : list) {
 					sb.append("<option ");
-					if (value != null && !value.equals("")) {
+					if (value != null && !"".equals(value)) {
 						if (value.equals(codevalue.getCode_value())) {
 							sb.append(" selected ");
 						}
@@ -303,7 +316,7 @@ public class SelectTag implements Tag {
 		sb.append("<script type=\"text/javascript\">");
 		
 		//如果过滤条件不为空、说明代码数据要通过动态过滤方式获取
-		if(!filter.equals("")){
+		if(!"".equals(filter)){
 			  sb.append(" $(function() { rc.dynamic_get_codevalue_by_codetype_and_filter(\"#"+property+"\",\""+codetype+"\",\""+filter+"\",\""+value+"\");})");
 		}
 	    sb.append("</script>");

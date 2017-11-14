@@ -47,19 +47,19 @@ public class ClientCall {
 		List<Data> datalist = new ArrayList<Data>();
 		Data data = new Data();
 		// 如果目标系统个人ID不为空
-		if (null != jkac01dto.getBac010() && !jkac01dto.getBac010().equals("")) {
+		if (null != jkac01dto.getBac010() && !"".equals(jkac01dto.getBac010())) {
 			 data.setBAC010(jkac01dto.getBac010());//目标系统个人ID
 		} else {
 			throw new AppException("个人编号不能为空");
 		}
 		// aac002 以及aac003至少得有一个
-		if (null != jkac01dto.getAac002() && !jkac01dto.getAac002().equals("")) {
+		if (null != jkac01dto.getAac002() && !"".equals(jkac01dto.getAac002())) {
 			data.setAAC002(jkac01dto.getAac002());// 证件号码
 		} else {
 			throw new AppException("身份证号码不能为空");
 		}
 		// 姓名
-		if (null != jkac01dto.getAac003() && !jkac01dto.getAac003().equals("")) {
+		if (null != jkac01dto.getAac003() && !"".equals(jkac01dto.getAac003())) {
 			data.setAAC003(jkac01dto.getAac003());// 姓名
 		} else {
 			throw new AppException("姓名不能为空");
@@ -71,7 +71,7 @@ public class ClientCall {
 			throw new AppException("出生日期不能为空");
 		}
         */
-		if (null != jkac01dto.getAac004() && !jkac01dto.getAac004().equals("")) {
+		if (null != jkac01dto.getAac004() && !"".equals(jkac01dto.getAac004())) {
 			data.setAAC004(jkac01dto.getAac004());//性别
 		} else {
 			throw new AppException("性别不能为空");

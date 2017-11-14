@@ -45,6 +45,7 @@ public class DisableUrlSessionFilter implements Filter {
     /**
      * Filters requests to disable URL-based session identifiers.
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         // skip non-http requests
         if (!(request instanceof HttpServletRequest)) {
@@ -58,7 +59,9 @@ public class DisableUrlSessionFilter implements Filter {
         // clear session if session id in URL
         if (httpRequest.isRequestedSessionIdFromURL()) {
             HttpSession session = httpRequest.getSession();
-            if (session != null) session.invalidate();
+            if (session != null) {
+                session.invalidate();
+            }
         }
 
         // wrap response to remove URL encoding
@@ -91,12 +94,14 @@ public class DisableUrlSessionFilter implements Filter {
     /**
      * Unused.
      */
+    @Override
     public void init(FilterConfig config) throws ServletException {
     }
 
     /**
      * Unused.
      */
+    @Override
     public void destroy() {
     }
 }

@@ -69,28 +69,40 @@ public class Base64Util {
             do {   
                 b1 = base64DecodeChars[data[i++]];   
             } while (i < len && b1 == -1);   
-            if (b1 == -1) break;   
+            if (b1 == -1) {
+                break;
+            }
             /* b2 */   
             do {   
                 b2 = base64DecodeChars[data[i++]];   
             } while (i < len && b2 == -1);   
-            if (b2 == -1) break;   
+            if (b2 == -1) {
+                break;
+            }
             sb.append((char)((b1 << 2) | ((b2 & 0x30) >>> 4)));   
             /* b3 */   
             do {   
                 b3 = data[i++];   
-                if (b3 == 61) return sb.toString().getBytes("ISO-8859-1");   
+                if (b3 == 61) {
+                    return sb.toString().getBytes("ISO-8859-1");
+                }
                 b3 = base64DecodeChars[b3];   
             } while (i < len && b3 == -1);   
-            if (b3 == -1) break;   
+            if (b3 == -1) {
+                break;
+            }
             sb.append((char)(((b2 & 0x0f) << 4) | ((b3 & 0x3c) >>> 2)));   
             /* b4 */   
             do {   
                 b4 = data[i++];   
-                if (b4 == 61) return sb.toString().getBytes("ISO-8859-1");   
+                if (b4 == 61) {
+                    return sb.toString().getBytes("ISO-8859-1");
+                }
                 b4 = base64DecodeChars[b4];   
             } while (i < len && b4 == -1);   
-            if (b4 == -1) break;   
+            if (b4 == -1) {
+                break;
+            }
             sb.append((char)(((b3 & 0x03) << 6) | b4));   
         }   
         return sb.toString().getBytes("ISO-8859-1");   
@@ -119,5 +131,28 @@ public class Base64Util {
         }else{
             return "";
         }
-    } 
+    }
+    /**
+     * picToBase64
+     * @param file
+     * @return
+     */
+    public static String picToBase64(File file) {
+        String fileName = file.getName();
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+        if(file.exists()){
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            try {
+                BufferedImage bImage =ImageIO.read(new FileInputStream(file));
+                ImageIO.write(bImage, suffix, out);
+                String base64 = encode(out.toByteArray());
+                return base64;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "";
+        }else{
+            return "";
+        }
+    }
 }   

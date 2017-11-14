@@ -54,7 +54,7 @@ public class FileUtils {
 		File file = new File(name);
 		FileOutputStream fo = new FileOutputStream(file);
 		int len;
-		byte b[] = new byte[1024];
+		byte[] b = new byte[1024];
 		while ((len = is.read(b, 0, 1024)) != -1) {
 			fo.write(b, 0, len);
 		}
@@ -90,7 +90,7 @@ public class FileUtils {
 		File file = new File(path, filename);
 		FileOutputStream fo = new FileOutputStream(file);
 		int len;
-		byte b[] = new byte[1024];
+		byte[] b = new byte[1024];
 		while ((len = is.read(b, 0, 1024)) != -1) {
 			fo.write(b, 0, len);
 		}
@@ -175,9 +175,9 @@ public class FileUtils {
 			while (e.hasMoreElements()) {
 				zipEntry = (ZipEntry) e.nextElement();
 				String entryName = zipEntry.getName();
-				String names[] = entryName.split("/");
+				String[] names = entryName.split("/");
 				int length = names.length;
-				if (!outPath.substring(outPath.length() - 1).equals("/")) {
+				if (!"/".equals(outPath.substring(outPath.length() - 1))) {
 					outPath += "/";
 				}
 				String path = outPath;
@@ -218,17 +218,18 @@ public class FileUtils {
 	 *            子目录（没有时可传入空字符串）
 	 */
 	private static void createDirectory(String directory, String subDirectory) {
-		String dir[];
+		String[] dir;
 		File fl = new File(directory);
 		try {
-			if (subDirectory == "" && fl.exists() != true)
+			if (subDirectory == "" && fl.exists() != true) {
 				fl.mkdir();
-			else if (subDirectory != "") {
+			} else if (subDirectory != "") {
 				dir = subDirectory.replace('\\', '/').split("/");
 				for (int i = 0; i < dir.length; i++) {
 					File subFile = new File(directory + File.separator + dir[i]);
-					if (subFile.exists() == false)
+					if (subFile.exists() == false) {
 						subFile.mkdir();
+					}
 					directory += File.separator + dir[i];
 				}
 			}

@@ -7,7 +7,7 @@ public class CommonChar {
 	public static final String ISO = "ISO-8859-1";
 	public static final String FS = "|";
 	public static final String COLON = ":";
-	public static final String pathSeparator = "/";
+	public static final String PATH_SEPARATOR= "/";
 	public static final String SEMICOLON = ";";
 
 	public static final String U_ALPHA_Y = "Y";

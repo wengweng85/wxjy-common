@@ -137,7 +137,7 @@ public class CheckboxEditTag implements Tag {
 					 sb.append("<input name=\""+property+"\" type=\"checkbox\" id=\""+id+"\" value=\""+codevalue.getCode_value()+"\"");
 					 
 					 for(int j=0;j<vals.length;j++){
-						 if (vals[j] != null && !vals[j].equals("")) {
+						 if (vals[j] != null && !"".equals(vals[j])) {
 								if (vals[j].equals(codevalue.getCode_value())) {
 									sb.append(" checked=\"checked\" ");
 								}

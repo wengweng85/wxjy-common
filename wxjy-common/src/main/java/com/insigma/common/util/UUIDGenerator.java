@@ -45,8 +45,9 @@ public class UUIDGenerator {
 	 */
 	protected static short getCount() {
 		synchronized (UUIDGenerator.class) {
-			if (counter < 0)
+			if (counter < 0) {
 				counter = 0;
+			}
 			return counter++;
 		}
 	}
@@ -69,7 +70,7 @@ public class UUIDGenerator {
 		return (int) System.currentTimeMillis();
 	}
 
-	private  final static String sep = "";
+	private  final static String SEP = "";
 
 	protected static String format(int intval) {
 		String formatted = Integer.toHexString(intval);
@@ -86,8 +87,8 @@ public class UUIDGenerator {
 	}
 
 	public static String generate() {
-		return new StringBuffer(32).append(format(getIP())).append(sep).append(
-			format(getJVM())).append(sep).append(format(getHiTime())).append(sep).append(format(getLoTime())).append(sep).append(
+		return new StringBuffer(32).append(format(getIP())).append(SEP).append(
+			format(getJVM())).append(SEP).append(format(getHiTime())).append(SEP).append(format(getLoTime())).append(SEP).append(
 			format(getCount())).toString().toUpperCase();
 	}
 	//Ö÷main·½·¨

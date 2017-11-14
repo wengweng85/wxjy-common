@@ -22,7 +22,8 @@ public class ShortWordsFunction implements TemplateMethodModel {
 	 * 参数1、参数2必须存在、如果不存在返回空字符串、参数3不存在默认为"..."
 	 */
 	
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public Object exec(List paramList) throws TemplateModelException {
 		return getWords(paramList);
 	}

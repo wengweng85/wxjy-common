@@ -73,7 +73,7 @@ public class JaxbUtil {
     @SuppressWarnings("unchecked")  
     public <T> T fromXml(String xml) {  
         try {  
-        	if(!xml.equals("")){
+        	if(!"".equals(xml)){
         		 StringReader reader = new StringReader(xml);  
                  return (T) createUnmarshaller().unmarshal(reader);  
         	}else{
@@ -91,8 +91,9 @@ public class JaxbUtil {
     public <T> T fromXml(String xml, boolean caseSensitive) {  
         try {  
             String fromXml = xml;  
-            if (!caseSensitive)  
-               fromXml = xml.toLowerCase();  
+            if (!caseSensitive) {
+                fromXml = xml.toLowerCase();
+            }
             StringReader reader = new StringReader(fromXml);  
             return (T) createUnmarshaller().unmarshal(reader);  
         } catch (JAXBException e) {  

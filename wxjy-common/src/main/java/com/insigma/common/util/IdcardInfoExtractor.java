@@ -126,7 +126,7 @@ public class IdcardInfoExtractor {
     }
 
     /**
-     * @return the city
+     * @return the codetype
      */
     public String getCity() {
         return city;

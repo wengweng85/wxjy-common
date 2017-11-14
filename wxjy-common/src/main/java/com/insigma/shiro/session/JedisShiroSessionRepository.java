@@ -71,8 +71,9 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
         }
         Session session = null;
         byte[] value = redisManager.get(SerializeUtil.serialize(getRedisSessionKey(sessionId)));
-        if (null == value)
+        if (null == value) {
             return null;
+        }
         session = SerializeUtil.deserialize(value,Session.class);
         return session;
     }

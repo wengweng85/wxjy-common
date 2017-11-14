@@ -30,6 +30,7 @@ public class DBTest implements Runnable /*extends Thread*/ {
         }
     }
 
+    @Override
     public void run() {
         if(date1==0)
         {

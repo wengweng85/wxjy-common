@@ -377,7 +377,7 @@ public class ExcelUtil
      * @return String 
      */  
     private static String getFileName( String tableName ) {  
-        return tableName + new Date().getTime() + ".xls" ;  
+        return tableName + System.currentTimeMillis() + ".xls" ;
     }  
     
     
@@ -465,7 +465,7 @@ public class ExcelUtil
                 System.out.println();  
             }  
         }  */
-    	Map<String, Object> map = new HashMap<String, Object>();
+    	Map<String, Object> map = new HashMap<String, Object>(4);
 	    map.put("a", "a");
 	    map.put("b", "b");
 	    map.put("c", "c");

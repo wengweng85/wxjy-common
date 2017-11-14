@@ -75,8 +75,9 @@ public class CopyEventBean
 						if(oldProperty.equalsIgnoreCase(newProperty))
 						{
 							if(value!=null){
-								if(value.equals("")){
-									value="331023413400";//数字标记证明它在事件表中以""形式保存
+								if("".equals(value)){
+									//数字标记证明它在事件表中以""形式保存
+									value="331023413400";
 								}
 								if(isBasicClass(toPropertie.getPropertyType())&& toPropertie.getPropertyType()==value.getClass())
 									{
@@ -149,9 +150,9 @@ public class CopyEventBean
 			
 			PropertyDescriptor[] fromProperties = fromBeanInfo.getPropertyDescriptors();
 			PropertyDescriptor[] toProperties = toBeanInfo.getPropertyDescriptors();
-			for (int i = 0; i < fromProperties.length; i++)
-			{
-				if(i==fromProperties.length-2){//获得相应属性的值 避免多次赋值
+			for (int i = 0; i < fromProperties.length; i++){
+				//获得相应属性的值 避免多次赋值
+				if(i==fromProperties.length-2){
 					for (int j = 0; j < toProperties.length; j++)
 					{
 						String newProperty= toProperties[j].getName();
@@ -404,9 +405,9 @@ public class CopyEventBean
 			
 			PropertyDescriptor[] fromProperties = fromBeanInfo.getPropertyDescriptors();
 			PropertyDescriptor[] toProperties = toBeanInfo.getPropertyDescriptors();
-			for (int i = 0; i < fromProperties.length; i++)
-			{
-				if(i==fromProperties.length-4){//获得相应属性的值 避免多次赋值
+			for (int i = 0; i < fromProperties.length; i++) {
+				//获得相应属性的值 避免多次赋值
+				if(i==fromProperties.length-4){
 					for (int j = 0; j < toProperties.length; j++)
 					{
 						String newProperty= toProperties[j].getName();
@@ -489,24 +490,26 @@ public class CopyEventBean
 					.getPropertyDescriptors();
 			Object fromValue=null;
 			Object toValue=null;
-			for (int i = 0; i < fromProperties.length; i++)
-				for (int j = 0; j < toProperties.length; j++)
+			for (int i = 0; i < fromProperties.length; i++) {
+				for (int j = 0; j < toProperties.length; j++) {
 					if (fromProperties[i].getName().equals(toProperties[j].getName())) {
-						if (isBasicClass(fromProperties[i].getPropertyType())&& isBasicClass(toProperties[j].getPropertyType())&& fromProperties[i].getPropertyType() == toProperties[j].getPropertyType())
-							fromValue=fromProperties[i].getReadMethod().invoke(fromObj, new Object[]{});
-						    toValue=toProperties[j].getReadMethod().invoke(toObj, new Object[]{});
-						    if(fromValue!=null&&fromValue.toString().equalsIgnoreCase("331023413400")){
-						    	fromValue="";
-						    }
-						    if(toValue==null){
-						    	toValue="";
-						    }
-						    if(fromValue!=null&&!fromValue.toString().equalsIgnoreCase(toValue.toString())&&!fromValue.toString().equalsIgnoreCase("null"))
-							{
-								toProperties[j].getWriteMethod().invoke(toObj,new Object[] { fromValue });
-							}						
-				        	break;
+						if (isBasicClass(fromProperties[i].getPropertyType()) && isBasicClass(toProperties[j].getPropertyType()) && fromProperties[i].getPropertyType() == toProperties[j].getPropertyType()) {
+							fromValue = fromProperties[i].getReadMethod().invoke(fromObj, new Object[]{});
+						}
+						toValue = toProperties[j].getReadMethod().invoke(toObj, new Object[]{});
+						if (fromValue != null && "331023413400".equalsIgnoreCase(fromValue.toString())) {
+							fromValue = "";
+						}
+						if (toValue == null) {
+							toValue = "";
+						}
+						if (fromValue != null && !fromValue.toString().equalsIgnoreCase(toValue.toString()) && !"null".equalsIgnoreCase(fromValue.toString())) {
+							toProperties[j].getWriteMethod().invoke(toObj, new Object[]{fromValue});
+						}
+						break;
 					}
+				}
+			}
 		} catch (Exception e) {
 			 throw new AppException( "属性复制失败",e );
 		}

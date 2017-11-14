@@ -11,16 +11,18 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * 
  */
 public class JaxbDateTimeAdapter extends XmlAdapter<String, Date> {
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+	private static final String FORMAT = "yyyyMMddHHmmss";
 	
 	
 	@Override
 	public String marshal(Date date) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT);
 		return sdf.format(date);
 	}
 
 	@Override
 	public Date unmarshal(String dateStr) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT);
 		return sdf.parse(dateStr);
 	}
 
