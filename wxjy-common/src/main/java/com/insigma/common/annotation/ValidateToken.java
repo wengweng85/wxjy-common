@@ -7,9 +7,9 @@ import java.lang.annotation.Target;
 
 /**
  * 检验token注解，此注解通常用于检验注解页面，即数据保存页面
+ *
  * @author wengsh
  * @date 2015-8-17
- *
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

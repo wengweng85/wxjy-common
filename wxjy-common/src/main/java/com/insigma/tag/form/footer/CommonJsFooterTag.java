@@ -76,6 +76,8 @@ public class CommonJsFooterTag implements Tag  {
 	 // sb.append("<script src='"+contextpath+"/resource/hplus/js/jquery.inputmask.date.extensions.js'></script>");
 	 // sb.append("<script src='"+contextpath+"/resource/hplus/js/jquery.inputmask.extensions.js'></script>");
 	
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap-paginator.js'></script>");
+	  
 	  //<!--rc about js--> 
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.all-2.0.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.tag-1.0.js'></script>");

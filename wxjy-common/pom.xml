@@ -21,12 +21,6 @@
     </properties>
 
     <dependencies>
-        <!--自定义jar包 -->
-        <dependency>
-            <groupId>com.insigma</groupId>
-            <artifactId>wxjy-common-model</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
@@ -605,9 +599,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.htmlparser</groupId>
-            <artifactId>htmlparser</artifactId>
-            <version>2.1</version>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.10.3</version>
         </dependency>
 
         <!-- javax.servlet -->
@@ -628,6 +622,20 @@
             <artifactId>jstl</artifactId>
             <version>1.1.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+
+       <!-- 获取视频第一帧-->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv</artifactId>
+            <version>0.8</version>
+        </dependency>
+
     </dependencies>
 
 

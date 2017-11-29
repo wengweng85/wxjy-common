@@ -9,8 +9,9 @@ import java.util.Properties;
  * Ê×Ò³»º´æ¼àÌıÆ÷
  */
 public class PageCacheEventListenerFactory extends CacheEventListenerFactory {
+
     @Override
     public CacheEventListener createCacheEventListener(Properties properties) {
-       return new PageCacheEventListener();
+        return new PageCacheEventListener();
     }
 }

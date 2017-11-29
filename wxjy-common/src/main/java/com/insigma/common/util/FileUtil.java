@@ -1012,6 +1012,35 @@ public class FileUtil {
 		finalFile.delete();
 	}
 
+	/**
+	 * 根据ftl模板生成WORD文件
+	 * @param dataMap     数据
+	 * @param FileName 文件名称
+	 * @param temp  Template
+	 * @throws Exception
+	 */
+	public File createWordFile(Map<String, Object> dataMap,
+									String FileName,Template temp) throws Exception{
+
+		//输出文档路径及名称
+		File finalFile = File.createTempFile(FileName, ".doc");
+		String wordFile = finalFile.getPath(); // 文件生成路径
+
+		File outFile = new File(wordFile);
+		Writer out = null;
+		FileOutputStream fos=null;
+		fos = new FileOutputStream(outFile);
+		OutputStreamWriter oWriter = new OutputStreamWriter(fos,"UTF-8");
+		//这个地方对流的编码不可或缺，使用main（）单独调用时，应该可以，但是如果是web请求导出时导出后word文档就会打不开，并且包XML文件错误。主要是编码格式不正确，无法解析。
+		//out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile)));
+		out = new BufferedWriter(oWriter);
+		temp.process(dataMap, out);
+		out.flush();
+		out.close();
+		fos.close();
+		return finalFile;
+	}
+
 
 	
 	

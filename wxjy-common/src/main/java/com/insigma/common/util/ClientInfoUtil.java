@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ClientInfoUtil {
 
-    public static Device getDevice(HttpServletRequest request) throws Exception {
+    public static Device getDevice(HttpServletRequest request) {
 
         UserAgent userAgent = UserAgent.parseUserAgentString(
                 request.getHeader("User-Agent"));
