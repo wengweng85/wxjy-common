@@ -8,8 +8,6 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
-import net.sf.ehcache.Element;
-
 import com.insigma.common.util.EhCacheUtil;
 import com.insigma.mvc.model.CodeValue;
 
@@ -250,12 +248,12 @@ public class SelectTag implements Tag {
 	     boolean isrequired=Boolean.parseBoolean(required);
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-	     sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+" control-label\">"+label);
+	     sb.append("<label class=\"col-md-"+labelcol+"  col-sm-"+labelcol*2+"  col-xs-"+labelcol*4+" control-label\">"+label);
 	     if(isrequired){
 	    	 sb.append("<span class=\"require\">*<span>");
 	     }
 	     sb.append("</label>");
-	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
+	     sb.append("<div class=\"col-md-"+inputcol+" col-sm-"+inputcol*2+" col-xs-"+inputcol*4+" \">");
 		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  title=\"请选择"+label+"\" value=\"" + value+ "\"  selectOnTab=\"true\" data-actions-box=\"true\" data-size=\""+size+"\"  data-live-search=\"true\" validate=\"" + validate+ "\"   data-selected-text-format=\"count > 2\"");
 		 
 		 if(isreadonly){
@@ -294,9 +292,9 @@ public class SelectTag implements Tag {
 		//如果codetype不为空且过滤条件为空
 		if(!"".equals(codetype) && "".equals(filter)){
 			// 从EhCache获取下载
-			Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype.toUpperCase());
-			if (element != null) {
-				List<CodeValue> list = (List<CodeValue>) element.getValue();
+			Object object=EhCacheUtil.getParamFromCache(codetype.toUpperCase());
+			if (object != null) {
+				List<CodeValue> list = (List<CodeValue>) object;
 				//sb.append("<option value=\"\"></option> ");
 				for (CodeValue codevalue : list) {
 					sb.append("<option ");

@@ -2,7 +2,6 @@ package com.insigma.common.util;
 
 import java.io.InputStream;
 
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
@@ -31,5 +30,14 @@ public class EhCacheUtil {
 
     public static void setManager(CacheManager manager) {
         EhCacheUtil.manager = manager;
+    }
+    
+    public static Object getParamFromCache(String key){
+    	Element element=EhCacheUtil.getManager().getCache("webcache").get(key);
+    	if(element!=null){
+    		return (Object)element.getValue();
+    	}else{
+    		return null;
+    	}
     }
 }

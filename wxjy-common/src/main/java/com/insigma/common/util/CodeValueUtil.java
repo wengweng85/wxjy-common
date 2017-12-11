@@ -1,9 +1,8 @@
 package com.insigma.common.util;
 
-import com.insigma.mvc.model.CodeValue;
-import net.sf.ehcache.Element;
-
 import java.util.List;
+
+import com.insigma.mvc.model.CodeValue;
 
 /**
  * 参数工具类
@@ -18,9 +17,9 @@ public class CodeValueUtil {
      * @return
      */
     public static String getCodeValueByName(String code_name, String code_type) {
-        Element element = EhCacheUtil.getManager().getCache("webcache").get(code_type);
-        if (element != null) {
-            List<CodeValue> list = (List<CodeValue>) element.getValue();
+        Object object=EhCacheUtil.getParamFromCache(code_type);
+        if (object != null) {
+            List<CodeValue> list = (List<CodeValue>) object;
             for (CodeValue codevalue : list) {
                 if (codevalue.getCode_name().equals(code_name)) {
                     return codevalue.getCode_value();
@@ -31,9 +30,9 @@ public class CodeValueUtil {
     }
 
     public static List<CodeValue> getCodeListByCodeType(String code_type) {
-        Element element = EhCacheUtil.getManager().getCache("webcache").get(code_type);
-        if (element != null) {
-            List<CodeValue> list = (List<CodeValue>) element.getValue();
+        Object object=EhCacheUtil.getParamFromCache(code_type);
+        if (object != null) {
+            List<CodeValue> list = (List<CodeValue>) object;
             return list;
         }
         return null;

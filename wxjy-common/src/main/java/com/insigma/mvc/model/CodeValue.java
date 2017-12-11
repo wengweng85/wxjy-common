@@ -2,6 +2,8 @@ package com.insigma.mvc.model;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 
 public class CodeValue implements java.io.Serializable{
 	
@@ -10,13 +12,20 @@ public class CodeValue implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String code_type;
+	private String code_seq;
+	
+	@NotNull(message="代码值不能为空")
 	private String code_value;
+	@NotNull(message="代码名称不能为空")
 	private String code_name;
-	private String par_code_value;
+	private String id;
+	private String name;
+	private String isParent;
 	private String code_describe;
-	private String code_spelling;
-	private String code_level;
+	private String code_type;
+	private String par_code_value;
+	private String par_code_name;
+	
 	private List<CodeValue> children;
 
 	public List<CodeValue> getChildren() {
@@ -25,6 +34,48 @@ public class CodeValue implements java.io.Serializable{
 
 	public void setChildren(List<CodeValue> children) {
 		this.children = children;
+	}
+	
+	
+	
+	public String getCode_seq() {
+		return code_seq;
+	}
+
+	public void setCode_seq(String code_seq) {
+		this.code_seq = code_seq;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getIsParent() {
+		return isParent;
+	}
+
+	public void setIsParent(String isParent) {
+		this.isParent = isParent;
+	}
+
+	public String getPar_code_name() {
+		return par_code_name;
+	}
+
+	public void setPar_code_name(String par_code_name) {
+		this.par_code_name = par_code_name;
 	}
 
 	public String getCode_type() {
@@ -57,20 +108,5 @@ public class CodeValue implements java.io.Serializable{
 	public void setCode_describe(String code_describe) {
 		this.code_describe = code_describe;
 	}
-	public String getCode_spelling() {
-		return code_spelling;
-	}
-	public void setCode_spelling(String code_spelling) {
-		this.code_spelling = code_spelling;
-	}
-	public String getCode_level() {
-		return code_level;
-	}
-	public void setCode_level(String code_level) {
-		this.code_level = code_level;
-	}
-	
-	
-	
 
 }

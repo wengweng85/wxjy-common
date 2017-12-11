@@ -40,6 +40,9 @@ public class CommonJsFooterTag implements Tag  {
 	  //<!-- 隐藏域用于重复校验验证 -->
 	  sb.append("<input type='hidden' id='CSRFToken' name='CSRFToken' value='"+csrf+"'>");
 	  
+	  
+	  sb.append("<script type=\"text/javascript\" src=\"http://api.map.baidu.com/api?v=2.0&ak=HZCXQq4lNQ0jOOnCBbpaNmuMgWkLN2TW\"></script>");
+	  sb.append("<script type=\"text/javascript\" src=\"http://api.map.baidu.com/library/AreaRestriction/1.2/src/AreaRestriction_min.js\"></script>");
 	  //<!--css及javascript引入开始-->
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/layer/layer.min.js'></script>");

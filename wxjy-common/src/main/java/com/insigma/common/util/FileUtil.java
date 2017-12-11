@@ -1077,16 +1077,23 @@ public class FileUtil {
 		 //String sourceDir="E:/门户网/源代码";
 		 //String sourceDir="E:/门户网/安装手册";
 		 //String sourceDir="E:/门户网/工具";
-		 String sourceDir="F:/各类项目文档/海安项目/数据库跟配置";
+		 String sourceDir="C:/Users/Thinkpad/Desktop/杭州残联演示环境搭建相关/照片";
+		 
+		   File[] file = (new File(sourceDir)).listFiles();
+	        for (int i = 0; i < file.length; i++) {  
+	            if (file[i].isFile()) {
+	            	System.out.println(file[i].getName());
+	            }
+	        }
 		 //String sourceDir="E:/拷贝";
 		 //String sourceDir="E:/Apache2";
 		 //String sourceDir="E:/Oracle92";
-		 listAllFile(sourceDir);
+		/* listAllFile(sourceDir);
 		 System.out.println(count);
 		 
 		 for (Object o : hm.keySet()) {
 			System.out.println("名字为："+o.toString());
-		 }
+		 }*/
 		 
 		
 		
