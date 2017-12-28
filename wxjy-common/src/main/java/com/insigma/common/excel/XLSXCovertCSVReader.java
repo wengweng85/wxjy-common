@@ -242,15 +242,18 @@ public class XLSXCovertCSVReader {
                 case NUMBER:
                     String n = value.toString();
                     // 判断是否是日期格式
-                    /*if (HSSFDateUtil.isADateFormat(this.formatIndex, n)) {
+                    if (HSSFDateUtil.isADateFormat(this.formatIndex, n)) {
                         Double d = Double.parseDouble(n);
                         Date date=HSSFDateUtil.getJavaDate(d);
                         thisStr=formateDateToString(date);
-                    } else if (this.formatString != null)
-                        thisStr = formatter.formatRawCellContents(
-                                Double.parseDouble(n), this.formatIndex,
-                                this.formatString);
-                    else*/
+                    } else if (this.formatString != null){
+                    	try{
+                    		 thisStr = formatter.formatRawCellContents( Double.parseDouble(n), this.formatIndex, this.formatString); 
+                    	}catch(Exception e){
+                    		  thisStr = n;
+                    	}
+                     }   
+                    else
                         thisStr = n;
                     break;
 

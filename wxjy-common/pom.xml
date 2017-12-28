@@ -154,12 +154,12 @@
             <artifactId>hibernate-validator</artifactId>
             <version>4.3.1.Final</version>
         </dependency>
-        
+
         <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
 
         <dependency>
@@ -319,15 +319,15 @@
             <version>5.1.33</version>
         </dependency>
         <dependency>
-              <groupId>com.oracle</groupId>
-              <artifactId>ojdbc14</artifactId>
-              <version>10.2.0.5.0</version>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc14</artifactId>
+            <version>10.2.0.5.0</version>
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>com.oracle</groupId>-->
-            <!--<artifactId>ojdbc7</artifactId>-->
-            <!--<version>12.1.0.1.0</version>-->
+        <!--<groupId>com.oracle</groupId>-->
+        <!--<artifactId>ojdbc7</artifactId>-->
+        <!--<version>12.1.0.1.0</version>-->
         <!--</dependency>-->
 
         <!-- 分布式事务 jta atomikos -->
@@ -629,18 +629,18 @@
             <version>1.4.7</version>
         </dependency>
 
-       <!-- https://mvnrepository.com/artifact/net.sourceforge.javacsv/javacsv -->
-		<dependency>
-		    <groupId>net.sourceforge.javacsv</groupId>
-		    <artifactId>javacsv</artifactId>
-		    <version>2.0</version>
-		</dependency>
-		
-       <!-- 获取视频第一帧-->
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.javacsv/javacsv -->
+        <dependency>
+            <groupId>net.sourceforge.javacsv</groupId>
+            <artifactId>javacsv</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- 视频处理-->
         <dependency>
             <groupId>org.bytedeco</groupId>
             <artifactId>javacv</artifactId>
-            <version>0.8</version>
+            <version>1.0</version>
         </dependency>
 
     </dependencies>

@@ -51,6 +51,7 @@ public class CommonJsFooterTag implements Tag  {
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/extensions/export/bootstrap-table-export.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/tableExport/tableExport.min.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.min.js'></script>");
 
 	  //<!-- ztree  -->
 	  sb.append("<script  src='"+contextpath+"/resource/hplus/js/jQuery/ztree/jquery.ztree.all.min.js'></script>");
@@ -74,6 +75,9 @@ public class CommonJsFooterTag implements Tag  {
 	  // <!-- bootstrap-editable -->
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap3-editable/js/bootstrap-editable.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/extensions/editable/bootstrap-table-editable.min.js'></script>");
+	  
+	  //<!--bootstrap-switch-->
+	  sb.append("<script src='"+contextpath+"/resource/hplus/css/plugins/bootstrap-switch-master/dist/js/bootstrap-switch.min.js'></script>");
 	  
 	 // sb.append("<script src='"+contextpath+"/resource/hplus/js/jquery.inputmask.js'></script>");
 	 // sb.append("<script src='"+contextpath+"/resource/hplus/js/jquery.inputmask.date.extensions.js'></script>");

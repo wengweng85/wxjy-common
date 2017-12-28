@@ -1,53 +1,35 @@
 package com.insigma.tag.form.input;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
-import com.insigma.common.util.EhCacheUtil;
-import com.insigma.mvc.model.CodeValue;
-
 /**
- * 自定义标签之checkbox
+ * 自定义标签之checkbox switch选择
+ * 主要用于是否选择框
  * 
  * @author wengsh
  *
  */
-public class CheckboxEditTag implements Tag {
+public class CheckboxSwitchEditTag implements Tag {
 
 	private PageContext pageContext;
 
 	// property
 	private String property;
 
-	private String codetype;
-	
 	//label
    private String label;
 			
 	//占位列数,包括label的一列
    private String cols;
 
-	//是否必输
-	private String required;
-	
 	// 值
 	private String value;
 
-	
-
-	public String getCodetype() {
-		return codetype;
-	}
-
-	public void setCodetype(String codetype) {
-		this.codetype = codetype;
-	}
 	
 
 	public String getProperty() {
@@ -83,13 +65,7 @@ public class CheckboxEditTag implements Tag {
 		this.cols = cols;
 	}
 
-	public String getRequired() {
-		return required;
-	}
 
-	public void setRequired(String required) {
-		this.required = required;
-	}
 
 	public String getValue() {
 		return value;
@@ -106,50 +82,21 @@ public class CheckboxEditTag implements Tag {
 	@Override
 	public int doStartTag() throws JspException {
 	     value=(value==null)?"":value;
-	     required=(required==null)?"":required;
 	     cols=(cols==null)?"1,2":cols;
-	     
 	     String [] col=cols.split(",");
-	     String [] vals=value.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
 	     int inputcol=Integer.parseInt(col[1]);
-	     //是否必输
-	     boolean isrequired=Boolean.parseBoolean(required);
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
 	     sb.append("<label class=\" col-xs-"+labelcol+"  col-sm-"+labelcol+"   control-label\">"+label);
-	     if(isrequired){
-	    	 sb.append("<span class=\"require\">*<span>");
-	     }
 	     sb.append("</label>");
 	     sb.append("<div class=\"  col-xs-"+inputcol+"  col-sm-"+inputcol+"  \">");
-	    
-		 
-		 // 从EhCache获取下载
-		 Object object=EhCacheUtil.getParamFromCache(codetype.toUpperCase());
-			if (object != null) {
-				List<CodeValue> list = (List<CodeValue>) object;
-				for (CodeValue codevalue : list) {
-					 String id="inlineCheckbox1_"+UUID.randomUUID();
-					 sb.append("<div class=\"checkbox checkbox-info checkbox-inline\">");
-					 sb.append("<input name=\""+property+"\" type=\"checkbox\" id=\""+id+"\" value=\""+codevalue.getCode_value()+"\"");
-					 
-					 for(int j=0;j<vals.length;j++){
-						 if (vals[j] != null && !"".equals(vals[j])) {
-								if (vals[j].equals(codevalue.getCode_value())) {
-									sb.append(" checked=\"checked\" ");
-								}
-						 }
-					 }
-					
-					sb.append(">");
-					sb.append("<label for=\""+id+"\"> "+codevalue.getCode_name() +" </label>");
-					sb.append("</div>");
-				}
-		 }	
-	  
-	     sb.append("</div>");
-		
+		 sb.append("<input name=\""+property+"\"  class=\"js-switch\"  type=\"checkbox\" id=\""+property+"\" value=\""+value+"\"" );
+		 if (value.equals("1")) {
+			sb.append(" checked=\"checked\" ");
+		 }
+		 sb.append(">");
+		 sb.append("</div>");
 		 try {  
 			   out.write(sb.toString());
 	     } catch (IOException e) {  

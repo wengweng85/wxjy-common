@@ -11,6 +11,7 @@ public enum SysCode  {
 	SYS_TOKEN_EMPTY("40003","token为空,请先登录"),
 	SYS_TOKEN_ERROR("40004","token值不正确或已经过期,请重新登录"),
 	SYS_USERID_ERROR("40005","登录信息与token信息不匹配,非法请求请确认"),
+	SYS_SERVICEURL_ERROR("40006","没有访问此服务的权限或地址地址,请确认"),
 	SYS_API_EXCEPTION("50001","api发生异常");
 	
 	private String code;

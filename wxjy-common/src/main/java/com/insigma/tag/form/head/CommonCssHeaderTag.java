@@ -53,6 +53,9 @@ public class CommonCssHeaderTag implements Tag  {
 	  
 	  sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/bootstrap3-editable/css/bootstrap-editable.css' rel='stylesheet'>");
 	    
+	  //bootstrap-switch
+	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.min.css' rel='stylesheet'>");
+	  
 	  //<!-- rc.css -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/rc.css' rel='stylesheet'>");
 	  

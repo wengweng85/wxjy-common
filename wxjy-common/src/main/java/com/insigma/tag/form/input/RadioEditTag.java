@@ -116,12 +116,12 @@ public class RadioEditTag implements Tag {
 	     boolean isrequired=Boolean.parseBoolean(required);
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-	     sb.append("<label class=\"col-md-"+labelcol+"  col-sm-"+labelcol*2+"  col-xs-"+labelcol*4+" control-label\">"+label);
+	     sb.append("<label class=\" col-xs-"+labelcol+"  col-sm-"+labelcol+"   control-label\">"+label);
 	     if(isrequired){
 	    	 sb.append("<span class=\"require\">*<span>");
 	     }
 	     sb.append("</label>");
-	     sb.append("<div class=\"col-md-"+inputcol+" col-sm-"+inputcol*2+" col-xs-"+inputcol*4+" \">");
+	     sb.append("<div class=\" col-xs-"+inputcol+"  col-sm-"+inputcol+"  \">");
 	    
 		 
 		 // 从EhCache获取下载

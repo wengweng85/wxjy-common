@@ -43,6 +43,9 @@ public class SelectTag implements Tag {
     private String readonly;
     
     private String filter;
+    
+    //是否动态获取
+    private String dynamic;
 
 	// 值
 	private String value;
@@ -186,6 +189,14 @@ public class SelectTag implements Tag {
 
 	
 	
+	public String getDynamic() {
+		return dynamic;
+	}
+
+	public void setDynamic(String dynamic) {
+		this.dynamic = dynamic;
+	}
+
 	public String getCodetype() {
 		return codetype;
 	}
@@ -232,6 +243,7 @@ public class SelectTag implements Tag {
 		 validate = (validate == null) ? "" : validate;
 		 value = (value == null) ? "" : value;
 		 multiple=(multiple==null)?"false":multiple;
+		 dynamic=(dynamic==null)?"false":dynamic; 
 		 required=(required==null)?"":required;
 		 readonly=(readonly==null)?"":readonly;
 		 codetype=(codetype==null)?"":codetype;
@@ -246,14 +258,15 @@ public class SelectTag implements Tag {
 	     boolean isreadonly=Boolean.parseBoolean(readonly);
 	     //是否必输
 	     boolean isrequired=Boolean.parseBoolean(required);
+	     boolean isdynamic=Boolean.parseBoolean(dynamic);
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-	     sb.append("<label class=\"col-md-"+labelcol+"  col-sm-"+labelcol*2+"  col-xs-"+labelcol*4+" control-label\">"+label);
+	     sb.append("<label class=\" col-xs-"+labelcol+"  col-sm-"+labelcol+"   control-label\">"+label);
 	     if(isrequired){
 	    	 sb.append("<span class=\"require\">*<span>");
 	     }
 	     sb.append("</label>");
-	     sb.append("<div class=\"col-md-"+inputcol+" col-sm-"+inputcol*2+" col-xs-"+inputcol*4+" \">");
+	     sb.append("<div class=\" col-xs-"+inputcol+"  col-sm-"+inputcol+"  \">");
 		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  title=\"请选择"+label+"\" value=\"" + value+ "\"  selectOnTab=\"true\" data-actions-box=\"true\" data-size=\""+size+"\"  data-live-search=\"true\" validate=\"" + validate+ "\"   data-selected-text-format=\"count > 2\"");
 		 
 		 if(isreadonly){
@@ -315,7 +328,11 @@ public class SelectTag implements Tag {
 		
 		//如果过滤条件不为空、说明代码数据要通过动态过滤方式获取
 		if(!"".equals(filter)){
-			  sb.append(" $(function() { rc.dynamic_get_codevalue_by_codetype_and_filter(\"#"+property+"\",\""+codetype+"\",\""+filter+"\",\""+value+"\");})");
+			  sb.append(" $(function() { rc_tag.dynamic_get_codevalue_by_codetype_and_filter(\"#"+property+"\",\""+codetype+"\",\""+filter+"\",\""+value+"\");})");
+		}else{
+			if(isdynamic){
+				sb.append(" $(function() { rc_tag.dynamic_get_codevalue_by_codetype(\"#"+property+"\",\""+codetype+"\",\""+value+"\");})");
+			}
 		}
 	    sb.append("</script>");
 

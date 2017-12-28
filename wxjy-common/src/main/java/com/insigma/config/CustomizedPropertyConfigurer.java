@@ -24,7 +24,7 @@ public class CustomizedPropertyConfigurer extends PropertyPlaceholderConfigurer 
 
         super.processProperties(beanFactory, props);
         //load properties to ctxPropertiesMap
-        ctxPropertiesMap = new HashMap<>(20);
+        ctxPropertiesMap = new HashMap<>(32);
         for (Object key : props.keySet()) {
             String keyStr = key.toString();
             String value = props.getProperty(keyStr);

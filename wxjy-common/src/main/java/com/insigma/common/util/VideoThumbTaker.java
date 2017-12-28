@@ -1,56 +1,65 @@
 package com.insigma.common.util;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
-import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.Java2DFrameConverter;
 
+/**
+ * 视频处理
+ */
+public class VideoThumbTaker {
 
-
-public class VideoThumbTaker
-{
     /**
      * 获取指定视频的帧并保存为图片至指定目录
-     * @param videofile  源视频文件路径
-     * @param framefile  截取帧的图片存放路径
+     *
+     * @param filePath       源视频文件路径
+     * @param targerFilePath 截取帧的图片存放路径
      * @throws Exception
      */
-    public static   void fetchFrame(String videofile, String framefile)
-            throws Exception {
-        long start = System.currentTimeMillis();
-        File targetFile = new File(framefile);
-        FFmpegFrameGrabber ff = new FFmpegFrameGrabber(videofile);
+    public static void fetchFrame(String filePath, String targerFilePath) throws Exception {
+        FFmpegFrameGrabber ff = FFmpegFrameGrabber.createDefault(filePath);
         ff.start();
-        int lenght = ff.getLengthInFrames();
-        int i = 0;
+        int ffLength = ff.getLengthInFrames();
         Frame f = null;
-        while (i < lenght) {
-            // 过滤前1帧，避免出现全黑的图片，依自己情况而定
+        int i = 0;
+        while (i < ffLength) {
+            // 过滤前100帧
             f = ff.grabFrame();
-            if ((i > 1) && (f.image != null)) {
+            if ((i > 100) && (f.image != null)) {
                 break;
             }
             i++;
         }
-        opencv_core.IplImage img = f.image;
-        int owidth = img.width();
-        int oheight = img.height();
-        // 对截取的帧进行等比例缩放
- /*       int width = 800;
-        int height = (int) (((double) width / owidth) * oheight);*/
-        int width = 1500;
-        int height = 1000;
-        BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-        bi.getGraphics().drawImage(f.image.getBufferedImage().getScaledInstance(width, height, Image.SCALE_SMOOTH),
-                0, 0, null);
-        ImageIO.write(bi, "jpg", targetFile);
-        //ff.flush();
+        doExecuteFrame(f, targerFilePath);
         ff.stop();
-        System.out.println(System.currentTimeMillis() - start);
+    }
+
+    public static void doExecuteFrame(Frame f, String targerFilePath) {
+        if (null == f || null == f.image) {
+            return;
+        }
+
+        Java2DFrameConverter converter = new Java2DFrameConverter();
+
+        String imageMat = "jpg";
+        BufferedImage bi = converter.getBufferedImage(f);
+        File output = new File(targerFilePath);
+        try {
+            ImageIO.write(bi, imageMat, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        // 测试
+        fetchFrame("c:/webroot/fileroot/020203/201712/201712201017353sxhse.mp4",
+                "c:/webroot/fileroot/020203/201712/201712201017353sxhse.jpg");
     }
 
 

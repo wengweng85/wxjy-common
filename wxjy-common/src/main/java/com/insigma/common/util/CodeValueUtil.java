@@ -1,7 +1,9 @@
 package com.insigma.common.util;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.insigma.mvc.model.Aa01;
 import com.insigma.mvc.model.CodeValue;
 
 /**
@@ -36,5 +38,11 @@ public class CodeValueUtil {
             return list;
         }
         return null;
+    }
+
+    public static String getAaa005Byaaa001(String aaa001){
+        Object object=EhCacheUtil.getParamFromCache("aa01");
+        HashMap<String,String> hm = (HashMap)object;
+        return hm.get(aaa001);
     }
 }
