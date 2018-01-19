@@ -308,7 +308,9 @@ public class SelectTag implements Tag {
 			Object object=EhCacheUtil.getParamFromCache(codetype.toUpperCase());
 			if (object != null) {
 				List<CodeValue> list = (List<CodeValue>) object;
-				//sb.append("<option value=\"\"></option> ");
+				if(!Boolean.parseBoolean(multiple)){
+					sb.append("<option value=\"\">«Î—°‘Ò"+label+"</option> ");
+				}
 				for (CodeValue codevalue : list) {
 					sb.append("<option ");
 					if (value != null && !"".equals(value)) {

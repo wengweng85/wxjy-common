@@ -52,19 +52,16 @@ public class CommonCssHeaderTag implements Tag  {
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css' rel='stylesheet'>");
 	  
 	  sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/bootstrap3-editable/css/bootstrap-editable.css' rel='stylesheet'>");
+	  
+	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/steps/jquery.steps.css' rel='stylesheet'>");
 	    
 	  //bootstrap-switch
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.min.css' rel='stylesheet'>");
 	  
 	  //<!-- rc.css -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/rc.css' rel='stylesheet'>");
-	  
-	  sb.append("<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->");
-	  sb.append("<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->");
-	  sb.append("<!--[if lt IE 9]>");
-	  sb.append("<script src=\"http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js\"></script>");
-	  sb.append("<script src=\"http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js\"></script>");
-	  sb.append("<![endif]-->");
+
+	  sb.append("<link href='"+contextpath+"/resource/hplus/js/selector/zyzn_1.css' rel='stylesheet'>");
 	  
 	  //以下js要在页面加载前加载
 	  sb.append("<script type=\"text/javascript\">");
@@ -73,7 +70,7 @@ public class CommonCssHeaderTag implements Tag  {
 	  
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/jQuery/all/jquery.js' charset ='utf-8'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/suggest/bootstrap-suggest.js'></script>");
-	  
+
 	  try {  
 		   out.write(sb.toString());
       } catch (IOException e) {  

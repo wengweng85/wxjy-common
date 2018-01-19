@@ -189,7 +189,7 @@ public class TextEditSuggestTag implements Tag {
 	     if(isclearbtn){
 	    	 sb.append("<a onclick=\""+property+"_clean_select('')\" type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-remove\"></i></a>");
 	     }
-	     sb.append("<button type=\"button\" class=\"btn btn-white dropdown-toggle\" data-toggle=\"dropdown\"><span class=\"caret\"></span></button>");
+	     sb.append("<button type=\"button\" class=\"btn btn-default btn-white dropdown-toggle\" data-toggle=\"dropdown\"><span class=\"caret\"></span></button>");
 	     sb.append("<ul class=\"dropdown-menu dropdown-menu-right\" role=\"menu\"></ul>");
 	     sb.append("</div></div></div>");
 	     

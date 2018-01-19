@@ -1,14 +1,16 @@
 package com.insigma.config;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import com.insigma.common.util.EhCacheUtil;
 
 /**
  * Created by Administrator on 2014-12-20.
@@ -38,8 +40,11 @@ public class CustomizedPropertyConfigurer extends PropertyPlaceholderConfigurer 
         try {
             result = ctxPropertiesMap.get(name).toString();
         } catch (Exception e) {
-            e.printStackTrace();
-            log.error(e.getMessage());
+    	  if(result.equals("")){
+          	result=(String)EhCacheUtil.getParamFromCache(name);
+          }
+          //e.printStackTrace();
+          log.error(e.getMessage());
         }
         return result;
 

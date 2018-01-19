@@ -147,7 +147,7 @@ public class TextEditIconCodeValueTag implements Tag {
 	     value=(value==null)?"":value;
 	     name_value=(name_value==null)?"":name_value;
 	     area=(area==null)?" ['40%', '80%']":area;
-	     url=(url==null)? contextPath+"/codetype/toCodeValuesuggest"  :url;//如果url不输入有一个默认的地址
+	     url=(url==null)? contextPath+"/sys/codetype/toCodeValuesuggest"  :url;//如果url不输入有一个默认的地址
 	     title=(title==null)?label+"代码搜索框":title;
 	     cols=(cols==null)?"1,2":cols;
 	     
@@ -164,9 +164,7 @@ public class TextEditIconCodeValueTag implements Tag {
 	     sb.append("<div class=\"input-group\">");
 	     sb.append("<input type=\"hidden\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\" >");
 	     sb.append("<input type=\"text\" id=\""+property+"_name\" name=\""+property+"_name\"  placeholder=\"请点击右侧放大镜选择\"  value=\""+name_value+"\"  readonly=\"readonly\" class=\"form-control\"> ");
-	     sb.append("<span class=\"input-group-btn\"> ");
-	     sb.append("<a type=\"button\" onclick=\""+property+"_open_select()\" class=\"btn btn-primary\"><i class=\"fa fa-search\"></i></a>");
-	     sb.append("</span>");
+	     sb.append("<span onclick=\""+property+"_open_select()\"  class=\"input-group-addon\"><i class=\"fa fa-search\"></i></span>");
 	     sb.append("</div> </div>");
 	     
 	     //对应javascript

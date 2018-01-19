@@ -140,7 +140,7 @@ public class TimePickerTag implements Tag {
 		 }
 		 sb.append(" > ");
 		 
-		 sb.append("<span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-remove\" ></span></span>");
+		 sb.append("<span class=\"input-group-addon\"><i class=\"fa fa-remove\"></i></span>");
 		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"fa fa-calendar\"></i></span>");
 		 sb.append("</div>");
 		 sb.append("</div>");

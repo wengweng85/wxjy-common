@@ -22,6 +22,9 @@ public class TextareaEditTag implements Tag {
 	
 	//label
    private String label;
+
+	//占位列数,包括label的一列
+	private String cols;
 			
 	//占位列数,包括label的一列
    private String rows;
@@ -137,8 +140,6 @@ public class TextareaEditTag implements Tag {
 		this.label = label;
 	}
 
-
-	
 	public String getRequired() {
 		return required;
 	}
@@ -159,13 +160,20 @@ public class TextareaEditTag implements Tag {
 		this.validate = validate;
 	}
 	
-
 	public String getRows() {
 		return rows;
 	}
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+
+	public String getCols() {
+		return cols;
+	}
+
+	public void setCols(String cols) {
+		this.cols = cols;
 	}
 
 	@Override
@@ -176,64 +184,70 @@ public class TextareaEditTag implements Tag {
 
 	@Override
 	public int doStartTag() throws JspException {
-	     //空值检查
-		 validate=(validate==null)?"":validate;
-	     value=(value==null)?"":value;
-	     readonly=(readonly==null)?"":readonly;
-	     required=(required==null)?"":required;
-	     rows=(rows==null)?"1":rows;
-	     
-	     //是否只读
-	     boolean isreadonly=Boolean.parseBoolean(readonly);
-	     //是否必输
-	     boolean isrequired=Boolean.parseBoolean(required);
-	     JspWriter out = pageContext.getOut();
-	     StringBuffer sb=new StringBuffer();
-	     sb.append("<label class=\"control-label\">"+label);
-	     if(isrequired){
-	    	 sb.append("<span class=\"require\">*<span>");
-	     }
-	     sb.append("</label>");
-	     
-	     sb.append("<div >");
-	     sb.append("<textarea class=\"form-control\"  rows=\""+rows+"\" id=\""+property+"\" name=\""+property+"\"  placeholder=\"请输入"+label+"\"  validate=\""+validate+"\" ");
-	     if(isreadonly){
-			 sb.append(" readonly=\"readonly\" ");
-		 }
-	     //onclick事件
-		 if(onclick!=null){
-			  sb.append(" onclick=\""+onclick+"\" ");
-		 }
-		 //onblur
-		 if(onblur!=null){
-			  sb.append(" onblur=\""+onblur+"\" ");
-		 }
-		 //onkeypress
-		 if(onkeypress!=null){
-			  sb.append(" onkeypress=\""+onkeypress+"\" ");
-		 }
+		//空值检查
+		validate=(validate==null)?"":validate;
+		value=(value==null)?"":value;
+		readonly=(readonly==null)?"":readonly;
+		required=(required==null)?"":required;
+		cols=(cols==null)?"1,11":cols;
+		rows=(rows==null)?"1":rows;
+
+
+		String [] col=cols.split(",");
+		int labelcol=Integer.parseInt(col[0]);
+		int inputcol=Integer.parseInt(col[1]);
+
+		//是否只读
+		boolean isreadonly=Boolean.parseBoolean(readonly);
+		//是否必输
+		boolean isrequired=Boolean.parseBoolean(required);
+		JspWriter out = pageContext.getOut();
+		StringBuffer sb=new StringBuffer();
+		sb.append("<label class=\"control-label col-xs-"+labelcol+"  col-sm-"+labelcol+"\">"+label);
+		if(isrequired){
+		 sb.append("<span class=\"require\">*<span>");
+		}
+		sb.append("</label>");
+
+		sb.append("<div class=\" col-xs-"+inputcol+"  col-sm-"+inputcol+"  \">");
+		sb.append("<textarea class=\"form-control\"  rows=\""+rows+"\" id=\""+property+"\" name=\""+property+"\"  placeholder=\"请输入"+label+"\"  validate=\""+validate+"\" ");
+		if(isreadonly){
+		 sb.append(" readonly=\"readonly\" ");
+		}
+		//onclick事件
+		if(onclick!=null){
+		  sb.append(" onclick=\""+onclick+"\" ");
+		}
+		//onblur
+		if(onblur!=null){
+		  sb.append(" onblur=\""+onblur+"\" ");
+		}
+		//onkeypress
+		if(onkeypress!=null){
+		  sb.append(" onkeypress=\""+onkeypress+"\" ");
+		}
 		//onkeydown
-		 if(onkeydown!=null){
-			  sb.append(" onkeydown=\""+onkeydown+"\" ");
-		 }
+		if(onkeydown!=null){
+		  sb.append(" onkeydown=\""+onkeydown+"\" ");
+		}
 		//onkeyup
-		 if(onkeyup!=null){
-			  sb.append(" onkeyup=\""+onkeyup+"\" ");
-		 }
+		if(onkeyup!=null){
+		  sb.append(" onkeyup=\""+onkeyup+"\" ");
+		}
 		//onchange
-		 if(onchange!=null){
-			  sb.append(" onchange=\""+onchange+"\" ");
-		 }
-		 sb.append(">");
-	     sb.append(value);
-	     sb.append("</textarea></div>");
-	    
-		 try {  
-			   out.write(sb.toString());
-	     } catch (IOException e) {  
-	           throw new RuntimeException(e);  
-	     }     
-		 return 0;
+		if(onchange!=null){
+		  sb.append(" onchange=\""+onchange+"\" ");
+		}
+		sb.append(">");
+		sb.append(value);
+		sb.append("</textarea></div>");
+
+		try {
+		   out.write(sb.toString());
+		} catch (IOException e) {
+		   throw new RuntimeException(e);
+		}
+		return 0;
 	}
 
 	@Override

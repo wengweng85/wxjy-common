@@ -13,7 +13,7 @@ import com.insigma.common.util.EhCacheUtil;
 import com.insigma.mvc.model.CodeValue;
 
 /**
- * 自定义标签之checkbox
+ * 自定义标签之checkbox jenkins测试
  * 
  * @author wengsh
  *

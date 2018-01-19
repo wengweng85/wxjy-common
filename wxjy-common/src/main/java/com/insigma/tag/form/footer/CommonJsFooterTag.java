@@ -84,10 +84,15 @@ public class CommonJsFooterTag implements Tag  {
 	 // sb.append("<script src='"+contextpath+"/resource/hplus/js/jquery.inputmask.extensions.js'></script>");
 	
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap-paginator.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap-closable-tab.js'></script>");
 	  
 	  //<!--rc about js--> 
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.all-2.0.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.tag-1.0.js'></script>");
+	  
+	  
+	  sb.append("<script src='"+contextpath+"/sys/codetype/getAreaData'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/selector/area_select.js'></script>");
 	  
 	  //<!-- Ä£ÐÍ -->
 	  sb.append("<script id=\"tpl_option\" type=\"text/x-handlebars-template\" >");
@@ -95,7 +100,6 @@ public class CommonJsFooterTag implements Tag  {
 	  sb.append("  <option value='{{code_value}}'   {{#equals code_value ../value }} selected {{/equals}}   >{{code_name}}</option>");
 	  sb.append("  {{/each}}");
 	  sb.append("</script>");
-	      
 	  
 	  
 	  try {  
