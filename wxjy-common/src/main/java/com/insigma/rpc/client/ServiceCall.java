@@ -5,7 +5,7 @@ import com.insigma.rpc.infostructofsebao.Request;
 import com.insigma.rpc.infostructofsebao.Response;
 
 /**
- * 调用服务
+ * 璋冪敤鏈嶅姟
  * @author wengsh
  *
  */

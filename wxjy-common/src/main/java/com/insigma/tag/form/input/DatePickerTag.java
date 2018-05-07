@@ -1,5 +1,7 @@
 package com.insigma.tag.form.input;
 
+import com.insigma.common.util.StringUtil;
+
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
@@ -35,10 +37,13 @@ public class DatePickerTag implements Tag {
 	//是否只读
 	private String readonly;
 
+	//placeholder
+	private String placeholder;
+	//开始时间对应控件ID
+	private String startDate;
+	//结束时间对应控件ID
+	private String endDate;
 
-	public void setValue(String value) {
-		this.value = value;
-	}
 
 	public PageContext getPageContext() {
 		return pageContext;
@@ -54,6 +59,10 @@ public class DatePickerTag implements Tag {
 
 	public String getValue() {
 		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	public String getValidate() {
@@ -72,21 +81,6 @@ public class DatePickerTag implements Tag {
 		this.label = label;
 	}
 
-	public String getRequired() {
-		return required;
-	}
-
-	
-	
-	
-	public String getReadonly() {
-		return readonly;
-	}
-
-	public void setReadonly(String readonly) {
-		this.readonly = readonly;
-	}
-
 	public String getCols() {
 		return cols;
 	}
@@ -95,8 +89,44 @@ public class DatePickerTag implements Tag {
 		this.cols = cols;
 	}
 
+	public String getRequired() {
+		return required;
+	}
+
 	public void setRequired(String required) {
 		this.required = required;
+	}
+
+	public String getReadonly() {
+		return readonly;
+	}
+
+	public void setReadonly(String readonly) {
+		this.readonly = readonly;
+	}
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 	@Override
@@ -122,6 +152,10 @@ public class DatePickerTag implements Tag {
 	     boolean isrequired=Boolean.parseBoolean(required);
 	     //是否只读
 	     boolean isreadonly=Boolean.parseBoolean(readonly);
+		String placeholders = placeholder;
+		if(placeholder == null){
+			placeholders = "请选择" + label;
+		}
 	     
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
@@ -132,14 +166,20 @@ public class DatePickerTag implements Tag {
 	     sb.append("</label>");
 	     sb.append("<div class=\"   col-xs-"+inputcol+"  col-sm-"+inputcol+"  \">");
 	     sb.append("<div class=\"input-group form_date date\">");
-		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\"  placeholder=\"请选择"+label+"\"   validate=\""+validate+"\" class=\"form-control\"  ");
+		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\"  placeholder=\""+placeholders+"\"   validate=\""+validate+"\" class=\"form-control\"  ");
 		 
 		 if(isreadonly){
 			 sb.append(" readonly=\"readonly\" ");
 		 }
+		 if(StringUtil.isNotEmpty(startDate)){
+			 sb.append(" startDate=\""+startDate+"\" ");
+		 }
+		if(StringUtil.isNotEmpty(endDate)){
+			sb.append(" endDate=\""+endDate+"\" ");
+		}
 		 sb.append(" > ");
 		 
-		 sb.append("<span class=\"input-group-addon\"><i class=\"fa fa-remove\"></i></span>");
+		 sb.append("<span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-remove\" ></span></span>");
 		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"fa fa-calendar\"></i></span>");
 		 sb.append("</div>");
 		 sb.append("</div>");

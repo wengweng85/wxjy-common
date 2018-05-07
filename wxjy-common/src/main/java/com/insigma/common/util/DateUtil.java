@@ -40,7 +40,7 @@ public final class DateUtil {
         if (strDate == null) {
             return null;
         }
-        String[] date = null;
+        String[] date;
         String newDate = "";
         if (strDate.indexOf("-") >= 0) {
             date = strDate.split("-");
@@ -380,5 +380,32 @@ public final class DateUtil {
      */
     public static boolean compare(Date now, Date lastdate, long comparemillseconds) {
         return (now.getTime() - lastdate.getTime()) > comparemillseconds;
+    }
+
+
+    /**
+     * 比较两个时间
+     *
+     * @param t2 要比较的时间
+     * @return
+     */
+    public static Boolean timeCompare(String t2) {
+        Boolean b;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        try {
+            c1.setTime(formatter.parse(formatter.format(new Date())));
+            c2.setTime(formatter.parse(t2));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int result = c1.compareTo(c2);
+        if (result >= 1) {
+            b = true;
+        } else {
+            b = false;
+        }
+        return b;
     }
 }

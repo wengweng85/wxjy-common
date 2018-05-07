@@ -124,7 +124,7 @@ public class RadioButtonEditTag implements Tag {
         }
         sb.append("</label>");
         sb.append("<div class=\" col-xs-"+inputcol+"  col-sm-"+inputcol+"  \">");
-        sb.append("<input type=\"hidden\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\" >");
+        sb.append("<input type=\"hidden\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\" class=\"radioButton\">");
 
 
         // 从EhCache获取下载

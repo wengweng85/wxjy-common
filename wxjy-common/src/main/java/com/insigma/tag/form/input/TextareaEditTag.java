@@ -58,6 +58,9 @@ public class TextareaEditTag implements Tag {
 	
 	//onkeyup事件
 	private String onkeyup;
+
+	//提示语
+	private String placeholder;
 	
 
 	public String getOnclick() {
@@ -176,6 +179,14 @@ public class TextareaEditTag implements Tag {
 		this.cols = cols;
 	}
 
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
+
 	@Override
 	public int doEndTag() throws JspException {
 		// TODO Auto-generated method stub
@@ -201,6 +212,11 @@ public class TextareaEditTag implements Tag {
 		boolean isreadonly=Boolean.parseBoolean(readonly);
 		//是否必输
 		boolean isrequired=Boolean.parseBoolean(required);
+
+		String placeholders = placeholder;
+		if(placeholder == null){
+			placeholders = "请输入"+label;
+		}
 		JspWriter out = pageContext.getOut();
 		StringBuffer sb=new StringBuffer();
 		sb.append("<label class=\"control-label col-xs-"+labelcol+"  col-sm-"+labelcol+"\">"+label);
@@ -210,7 +226,7 @@ public class TextareaEditTag implements Tag {
 		sb.append("</label>");
 
 		sb.append("<div class=\" col-xs-"+inputcol+"  col-sm-"+inputcol+"  \">");
-		sb.append("<textarea class=\"form-control\"  rows=\""+rows+"\" id=\""+property+"\" name=\""+property+"\"  placeholder=\"请输入"+label+"\"  validate=\""+validate+"\" ");
+		sb.append("<textarea class=\"form-control\"  rows=\""+rows+"\" id=\""+property+"\" name=\""+property+"\"  placeholder=\""+placeholders+"\"  validate=\""+validate+"\" ");
 		if(isreadonly){
 		 sb.append(" readonly=\"readonly\" ");
 		}

@@ -1042,9 +1042,135 @@ public class FileUtil {
 	}
 
 
-	
-	
-    /**
+	/** 判断文件类型  */
+	public static FileType getFileType(String filePath) throws IOException {
+		// 获取文件头
+		String fileHead = getFileHeader(filePath);
+
+		if (fileHead != null && fileHead.length() > 0) {
+			fileHead = fileHead.toUpperCase();
+			FileType[] fileTypes = FileType.values();
+
+			for (FileType type : fileTypes) {
+				if (fileHead.startsWith(type.getValue())) {
+					return type;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * 根据文件的输入流获取文件头信息
+	 *
+	 * @param is
+	 * @return 文件头信息
+	 */
+	public static FileType getFileType(InputStream  is) {
+		byte[] b = new byte[4];
+		if(is!=null){
+			try {
+				is.read(b, 0, b.length);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		FileType[] fileTypes = FileType.values();
+
+		String fileHead=getFileHeader(b);
+		for (FileType type : fileTypes) {
+			if (fileHead.startsWith(type.getValue())) {
+				return type;
+			}
+		}
+		return null;
+	}
+
+
+	/** 读取文件头 */
+	private static String getFileHeader(String filePath) throws IOException {
+		byte[] b = new byte[28];
+		InputStream inputStream = null;
+
+		try {
+			inputStream = new FileInputStream(filePath);
+			inputStream.read(b, 0, 28);
+		} finally {
+			if (inputStream != null) {
+				inputStream.close();
+			}
+		}
+
+		return bytesToHex(b);
+	}
+
+	/** 将字节数组转换成16进制字符串 */
+	public static String bytesToHex(byte[] src){
+		StringBuilder stringBuilder = new StringBuilder("");
+		if (src == null || src.length <= 0) {
+			return null;
+		}
+		for (int i = 0; i < src.length; i++) {
+			int v = src[i] & 0xFF;
+			String hv = Integer.toHexString(v);
+			if (hv.length() < 2) {
+				stringBuilder.append(0);
+			}
+			stringBuilder.append(hv);
+		}
+		return stringBuilder.toString();
+	}
+
+
+
+	/**
+	 * 根据文件转换成的字节数组获取文件头信息
+	 *
+	 * @param filePath
+	 *            文件路径
+	 * @return 文件头信息
+	 */
+	public static String getFileHeader(byte[] b) {
+		String value = bytesToHexString(b);
+		return value;
+	}
+
+	/**
+	 * 将要读取文件头信息的文件的byte数组转换成string类型表示
+	 * 下面这段代码就是用来对文件类型作验证的方法，
+	 * 将字节数组的前四位转换成16进制字符串，并且转换的时候，要先和0xFF做一次与运算。
+	 * 这是因为，整个文件流的字节数组中，有很多是负数，进行了与运算后，可以将前面的符号位都去掉，
+	 * 这样转换成的16进制字符串最多保留两位，如果是正数又小于10，那么转换后只有一位，
+	 * 需要在前面补0，这样做的目的是方便比较，取完前四位这个循环就可以终止了
+	 * @param src要读取文件头信息的文件的byte数组
+	 * @return 文件头信息
+	 */
+	private static String bytesToHexString(byte[] src) {
+		StringBuilder builder = new StringBuilder();
+		if (src == null || src.length <= 0) {
+			return null;
+		}
+		String hv;
+		for (int i = 0; i < src.length; i++) {
+			// 以十六进制（基数 16）无符号整数形式返回一个整数参数的字符串表示形式，并转换为大写
+			hv = Integer.toHexString(src[i] & 0xFF).toUpperCase();
+			if (hv.length() < 2) {
+				builder.append(0);
+			}
+			builder.append(hv);
+		}
+
+		System.out.println("获取文件头信息:"+builder.toString());
+
+		return builder.toString();
+	}
+
+
+
+
+	/**
      * 测试
      * @param args
      * @throws Exception

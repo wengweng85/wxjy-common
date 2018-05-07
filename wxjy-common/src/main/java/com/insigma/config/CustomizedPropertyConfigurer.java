@@ -44,7 +44,7 @@ public class CustomizedPropertyConfigurer extends PropertyPlaceholderConfigurer 
           	result=(String)EhCacheUtil.getParamFromCache(name);
           }
           //e.printStackTrace();
-          log.error(e.getMessage());
+          //log.error(e.getMessage());
         }
         return result;
 

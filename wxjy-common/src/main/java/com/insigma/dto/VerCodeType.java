@@ -5,7 +5,7 @@ package com.insigma.dto;
  */
 public enum VerCodeType {
     VerCode_TYPE_SMS_MOBILEREG("SMS_MOBILEREG","手机号注册验证码"),
-        VerCode_TYPE_SMS_PWDBACK("SMS_PWDBACK","手机密码找回验证码");
+    VerCode_TYPE_SMS_PWDBACK("SMS_PWDBACK","手机密码找回验证码");
 
     private String code;
     private String name;

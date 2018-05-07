@@ -3,7 +3,6 @@ package com.insigma.common.util;
 import java.util.HashMap;
 import java.util.List;
 
-import com.insigma.mvc.model.Aa01;
 import com.insigma.mvc.model.CodeValue;
 
 /**

@@ -135,14 +135,14 @@ public class ExcelExport<T> {
         // 声明一个工作薄  
         XSSFWorkbook workbook = new XSSFWorkbook();  
         // 生成一个表格  
-        XSSFSheet sheet = workbook.createSheet(fileName);  
+        XSSFSheet sheet = workbook.createSheet("Sheet1");  
         // 设置表格默认列宽度为15个字节  
         sheet.setDefaultColumnWidth((short) 20);  
         // 产生表格标题行  
         XSSFRow row = sheet.createRow(0);  
         for (short i = 0; i < headers.length; i++) {  
             XSSFCell cell = row.createCell(i);  
-            XSSFRichTextString text = new XSSFRichTextString(headers[i]);  
+            XSSFRichTextString text = new XSSFRichTextString(headers[i].split(",")[0]);  
             cell.setCellValue(text);  
         }  
         try {  
@@ -157,8 +157,7 @@ public class ExcelExport<T> {
                 Field[] fields = t.getClass().getDeclaredFields();  
                 for (short i = 0; i < headers.length; i++) {  
                     XSSFCell cell = row.createCell(i);  
-                    Field field = fields[i];  
-                    String fieldName = field.getName();  
+                    String fieldName = headers[i].split(",")[1];
                     String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);  
                     Class tCls = t.getClass();  
                     Method getMethod = tCls.getMethod(getMethodName, new Class[] {});  
@@ -190,7 +189,7 @@ public class ExcelExport<T> {
     public String getExportedFile(XSSFWorkbook workbook) throws Exception {  
     	FileOutputStream fos =null ;  
         try {  
-            File file=File.createTempFile("excel_error_", ".xlsx");
+            File file=File.createTempFile("excel_export_", ".xlsx");
             fos=new FileOutputStream(file);
             workbook.write(fos); 
             return file.getPath();

@@ -1,8 +1,7 @@
 package com.insigma.mvc.model;
 
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 public class CodeValue implements java.io.Serializable{
@@ -25,6 +24,15 @@ public class CodeValue implements java.io.Serializable{
 	private String code_type;
 	private String par_code_value;
 	private String par_code_name;
+
+	public String getFilter() {
+		return filter;
+	}
+
+	public void setFilter(String filter) {
+		this.filter = filter;
+	}
+	private String filter;
 	
 	private List<CodeValue> children;
 

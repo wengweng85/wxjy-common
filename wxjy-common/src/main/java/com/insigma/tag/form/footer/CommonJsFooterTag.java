@@ -8,6 +8,8 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
+import com.insigma.common.listener.AppConfig;
+
 
 /**
  * 自定义标签之表单选择框标签
@@ -31,6 +33,10 @@ public class CommonJsFooterTag implements Tag  {
 	  // TODO Auto-generated method stub
 	  HttpServletRequest request=((HttpServletRequest) this.pageContext.getRequest());
       String contextpath = request.getContextPath();
+      String staticPath = AppConfig.getProperties("website_static_resource_url");
+      if(null==staticPath||staticPath.equals("")){
+		  staticPath=contextpath;
+	  }
 	  StringBuffer sb=new StringBuffer();
 	  
 	  String csrf=(String)request.getAttribute("csrf" );
@@ -44,55 +50,55 @@ public class CommonJsFooterTag implements Tag  {
 	  sb.append("<script type=\"text/javascript\" src=\"http://api.map.baidu.com/api?v=2.0&ak=HZCXQq4lNQ0jOOnCBbpaNmuMgWkLN2TW\"></script>");
 	  sb.append("<script type=\"text/javascript\" src=\"http://api.map.baidu.com/library/AreaRestriction/1.2/src/AreaRestriction_min.js\"></script>");
 	  //<!--css及javascript引入开始-->
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap.min.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/layer/layer.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/bootstrap.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/layer/layer.min.js'></script>");
 	  //<!--bootstrap-table  -->
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/extensions/export/bootstrap-table-export.min.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/tableExport/tableExport.min.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/bootstrap-table/extensions/export/bootstrap-table-export.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/tableExport/tableExport.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.min.js'></script>");
 
 	  //<!-- ztree  -->
-	  sb.append("<script  src='"+contextpath+"/resource/hplus/js/jQuery/ztree/jquery.ztree.all.min.js'></script>");
+	  sb.append("<script  src='"+staticPath+"/resource/hplus/js/jQuery/ztree/jquery.ztree.all.min.js'></script>");
 	
 	  //<!-- select -->
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/js/bootstrap-select.min.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/bootstrap-select/js/bootstrap-select.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js'></script>");
 	  
 	  //<!--select2-->
-	  //sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/select2/js/select2.full.min.js'></script>");
-	  //sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/select2/js/i18n/zh-CN.js'></script>");
+	  //sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/select2/js/select2.full.min.js'></script>");
+	  //sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/select2/js/i18n/zh-CN.js'></script>");
 	  
 	  // <!-- datetimepicker -->
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js'></script>");
 	  
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/json2.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/json2.js'></script>");
 	  
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/contabs.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/contabs.js'></script>");
 	  
 	  // <!-- bootstrap-editable -->
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap3-editable/js/bootstrap-editable.min.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/extensions/editable/bootstrap-table-editable.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/bootstrap3-editable/js/bootstrap-editable.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/plugins/bootstrap-table/extensions/editable/bootstrap-table-editable.min.js'></script>");
 	  
 	  //<!--bootstrap-switch-->
-	  sb.append("<script src='"+contextpath+"/resource/hplus/css/plugins/bootstrap-switch-master/dist/js/bootstrap-switch.min.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/css/plugins/bootstrap-switch-master/dist/js/bootstrap-switch.min.js'></script>");
 	  
-	 // sb.append("<script src='"+contextpath+"/resource/hplus/js/jquery.inputmask.js'></script>");
-	 // sb.append("<script src='"+contextpath+"/resource/hplus/js/jquery.inputmask.date.extensions.js'></script>");
-	 // sb.append("<script src='"+contextpath+"/resource/hplus/js/jquery.inputmask.extensions.js'></script>");
+	 // sb.append("<script src='"+staticPath+"/resource/hplus/js/jquery.inputmask.js'></script>");
+	 // sb.append("<script src='"+staticPath+"/resource/hplus/js/jquery.inputmask.date.extensions.js'></script>");
+	 // sb.append("<script src='"+staticPath+"/resource/hplus/js/jquery.inputmask.extensions.js'></script>");
 	
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap-paginator.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap-closable-tab.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/bootstrap-paginator.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/bootstrap-closable-tab.js'></script>");
 	  
 	  //<!--rc about js--> 
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.all-2.0.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.tag-1.0.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/rc.all-2.0.js'></script>");
+	  sb.append("<script src='"+staticPath+"/resource/hplus/js/rc.tag-1.0.js'></script>");
 	  
 	  
-	  sb.append("<script src='"+contextpath+"/sys/codetype/getAreaData'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/selector/area_select.js'></script>");
+	  //sb.append("<script src='"+staticPath+"/sys/codetype/getAreaData'></script>");
+	  //sb.append("<script src='"+staticPath+"/resource/hplus/js/selector/area_select.js'></script>");
 	  
 	  //<!-- 模型 -->
 	  sb.append("<script id=\"tpl_option\" type=\"text/x-handlebars-template\" >");
