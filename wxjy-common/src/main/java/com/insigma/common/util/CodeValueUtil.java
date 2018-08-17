@@ -1,9 +1,9 @@
 package com.insigma.common.util;
 
+import com.insigma.mvc.model.CodeValue;
+
 import java.util.HashMap;
 import java.util.List;
-
-import com.insigma.mvc.model.CodeValue;
 
 /**
  * 参数工具类

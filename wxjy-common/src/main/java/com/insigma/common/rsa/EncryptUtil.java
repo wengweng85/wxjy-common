@@ -7,6 +7,8 @@ import org.apache.commons.lang.ArrayUtils;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,7 +16,7 @@ import java.io.IOException;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
+import java.security.Security;
 import java.security.spec.X509EncodedKeySpec;
 
 
@@ -32,6 +34,14 @@ public class EncryptUtil {
 
     /** RSA_PUBLICKEY_FILENAME */
     private static final String RSA_PUBLICKEY_FILENAME = "/publicKey.keystore";
+
+    public static final String KEY_ALGORITHM = "AES";
+    // 加密模式
+    public static final String CIPHER_ALGORITHM = "AES/CBC/PKCS7Padding";
+    // 字符集
+    public static final String ENCODING = "UTF-8";
+    // 向量
+    public static final String IV_SEED = "1234567812345678";
 
     private EncryptUtil() {
     }
@@ -96,7 +106,7 @@ public class EncryptUtil {
      * @return 加密及签名结果数据
      * @throws Exception
      */
-    public static String encryptAndSignBySHA1withRSA(String inputStr) throws  Exception{
+    public static String encryptAndSign(String inputStr) throws  Exception{
         String [] dataanssign= encryptByAesAndRsaPublickey(inputStr,publickey);
         return "data="+dataanssign[0]+"&sign="+dataanssign[1];
     }
@@ -112,7 +122,7 @@ public class EncryptUtil {
      * @return
      * @throws Exception
      */
-    public static byte[] encryptByPublicKey(byte[] data, String key) throws Exception {
+    private static byte[] encryptByPublicKey(byte[] data, String key) throws Exception {
         // 对公钥解密
         byte[] keyBytes = Base64.decodeBase64(key);
 
@@ -146,7 +156,7 @@ public class EncryptUtil {
      * @return
      * @throws Exception
      */
-    public static String encryptByPublicKey(String data, String key) throws Exception {
+    private static String encryptByPublicKey(String data, String key) throws Exception {
         return Base64.encodeBase64String(encryptByPublicKey(data.getBytes(), key));
     }
 
@@ -159,7 +169,7 @@ public class EncryptUtil {
      * @throws Exception
      */
     public static String[] encryptByAesAndRsaPublickey(String plantText) throws Exception{
-       return encryptByAesAndRsaPublickey(plantText,readPublicKey());
+        return encryptByAesAndRsaPublickey(plantText,readPublicKey());
     }
 
     /**
@@ -172,14 +182,14 @@ public class EncryptUtil {
      * @throws Exception
      */
     public static String[] encryptByAesAndRsaPublickey(String plantText,String publickey) throws Exception{
+        //AES_KEY = getAesKey();
         String [] dataandsign=new String[2];
-        String aes_str = AESCBCUtils.encrypt(plantText, AES_KEY); //aes密文
+        String aes_str = aesEncrypt(plantText, AES_KEY); //aes密文
         String rsa_str = encryptByPublicKey(AES_KEY,publickey); //rsa密文--公钥加密
         StringBuffer sb = new StringBuffer();
         sb.append(aes_str).append(EncryptUtil.SEPARATOR).append(rsa_str);
         String data= sb.toString();
-        //对数据反转签名
-        String sign= MD5Util.MD5Encode(data);
+        String sign= MD5Util.MD5Encode(plantText);
         dataandsign[0]=data;
         dataandsign[1]=sign;
         return dataandsign;
@@ -194,7 +204,7 @@ public class EncryptUtil {
      * @return
      * @throws Exception
      */
-    public static String decryptByPublicKey(String encodedata, String key) throws Exception {
+    private static String decryptByPublicKey(String encodedata, String key) throws Exception {
         return  new String(decryptByPublicKey(Base64.decodeBase64(encodedata),key));
     }
 
@@ -208,7 +218,7 @@ public class EncryptUtil {
      * @return
      * @throws Exception
      */
-    public static byte[] decryptByPublicKey(byte[] data, String key) throws Exception {
+    private static byte[] decryptByPublicKey(byte[] data, String key) throws Exception {
         // 对密钥解密
         byte[] keyBytes = Base64.decodeBase64(key);
 
@@ -241,8 +251,8 @@ public class EncryptUtil {
      * @return
      * @throws Exception
      */
-    public static String decryptByAesAndRsaPublickey(String responseParams) throws Exception{
-        return decryptByAesAndRsaPublickey(responseParams,readPublicKey());
+    private static String decryptByAesAndRsaPublickey(String responseParams) throws Exception{
+       return decryptByAesAndRsaPublickey(responseParams,readPublicKey());
     }
 
     /**
@@ -266,12 +276,98 @@ public class EncryptUtil {
         String rsaCipherText = dataArr[1];
         String aesKey = decryptByPublicKey(rsaCipherText,publickey);//rsa解密--私钥解密
         //System.out.println("AES密钥为:" + aesKey);
-        String reqparams = AESCBCUtils.decrypt(aesCipherText, aesKey).trim();//aes解密--数据明文
+        String reqparams = aesDecrypt(aesCipherText, aesKey).trim();//aes解密--数据明文
         //System.out.println("解密后的数据明文为:" + reqparams);
         return reqparams;
     }
 
+    /**
+     * AES加密算法
+     *
+     * @param str 密文
+     * @param key 密key
+     * @return
+     */
+    public static String aesEncrypt(String str, String key) {
+        try {
+            if (str == null) {
+                System.out.println("AES加密出错:Key为空null");
+                return null;
+            }
+            // 判断Key是否为16位
+            if (key.length() != 16) {
+                System.out.println("AES加密出错:Key长度不是16位");
+                return null;
+            }
+            byte[] raw = key.getBytes(ENCODING);
+            SecretKeySpec skeySpec = new SecretKeySpec(raw, KEY_ALGORITHM);
+            Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+            IvParameterSpec iv = new IvParameterSpec(IV_SEED.getBytes(ENCODING));
+            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
+            byte[] srawt = str.getBytes(ENCODING);
+			/*int len = srawt.length;
+			*//* 计算补空格后的长度 *//*
+			while (len % 16 != 0)
+				len++;
+			byte[] sraw = new byte[len];
+			*//* 在最后空格 *//*
+			for (int i = 0; i < len; ++i) {
+				if (i < srawt.length) {
+					sraw[i] = srawt[i];
+				} else {
+					sraw[i] = 32;
+				}
+			}*/
+            byte[] encrypted = cipher.doFinal(srawt);
+            return formatString(new String(Base64.encodeBase64(encrypted), "UTF-8"));
+        } catch (Exception ex) {
+            System.out.println("AES加密出错：" + ex.toString());
+            return null;
+        }
+    }
 
+    /**
+     * AES解密算法
+     *
+     * @param str 密文
+     * @param key 密key
+     * @return
+     */
+    public static String aesDecrypt(String str, String key) {
+        try {
+            // 判断Key是否正确
+            if (key == null) {
+                System.out.println("AES解密出错:Key为空null");
+                return null;
+            }
+            // 判断Key是否为16位
+            if (key.length() != 16) {
+                System.out.println("AES解密出错：Key长度不是16位");
+                return null;
+            }
+            byte[] raw = key.getBytes(ENCODING);
+            SecretKeySpec skeySpec = new SecretKeySpec(raw, KEY_ALGORITHM);
+            Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+            IvParameterSpec iv = new IvParameterSpec(IV_SEED.getBytes(ENCODING));
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+            byte[] bytes = Base64.decodeBase64(str.getBytes("UTF-8"));
+            bytes = cipher.doFinal(bytes);
+            return new String(bytes, ENCODING);
+        } catch (Exception ex) {
+            System.out.println("AES解密出错：" + ex.toString());
+            return null;
+        }
+    }
+
+
+    private static String formatString(String sourceStr) {
+        if (sourceStr == null) {
+            return null;
+        }
+        return sourceStr.replaceAll("\\r", "").replaceAll("\\n", "");
+    }
 
     /**
      * 随机生成秘钥
@@ -292,7 +388,7 @@ public class EncryptUtil {
      * byte数组转化为16进制字符串
      * @param bytes
      * @return
-             */
+     */
     private static String byteToHexString(byte[] bytes){
         String hs = "";
         String stmp = "";
@@ -315,6 +411,6 @@ public class EncryptUtil {
      */
     public static void main(String[] args) throws Exception{
         String inputStr = "{\"aac002\":\"420624198411037915\"}";
-        System.out.println(encryptAndSignBySHA1withRSA(inputStr));
+        System.out.println(encryptAndSign(inputStr));
     }
 }

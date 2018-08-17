@@ -1,6 +1,7 @@
 package com.insigma.common.rsa;
 
 import com.insigma.common.util.MD5Util;
+import net.sf.json.JSONObject;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
@@ -10,10 +11,8 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.jce.provider.symmetric.AES;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.security.provider.MD5;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -56,6 +55,13 @@ public class RSAUtils {
 
     /**保存生成的密钥对的文件名称 对象。 */
     private static final String RSA_PAIR_KEYSTORE_FILENAME = "/__RSA_PAIR.keystore";
+
+    /*默认秘钥*/
+    private static final String DEFUALT_PRIVATE_KEY="MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAIYc/OPR3MzgKZQaRfOlfK1xw36YU1KVwU96sAzlAtm+oscCNwZRP2JN5UYAbxGcPbWVdfH76Ud/mFJc73VFQA2oSUpqJCb/BEpMYVC+PK3jZHshTuKSmo65hz6DdrkIQz1fOO4IeM4iJp1VQpmjtGd2i1zn1arzlccaY1EyylfHAgMBAAECgYABs1ZlkSCqnGEKlrayWzPUgy/GaCoOTwXPey/GShUaK7emrFmEQ/14wqIYnCLMZ13E8qs3MUmI9Y455SHIK+OfBAEI4jApE+8eSJ8LsfUd60pswSKtH/2XRVMwLJej6OJqR0FCy3CaA7etj/KvdTi7uLldIZ8tSOCq2+BjKdm8IQJBAMUK2GH9Eq/KLoYJi1zDc7RZG0pHwYJdNCYLfRuRII3w2h/1gUpBHV9vbsECpxS+kkqGyW8OA6Fc3hrWqru/L9ECQQCuPd0rQhtdpT9IPmmTvuMvPx1vE/zQjujtS9oeU7oz+8We55taSH5ytsmmWWRDHjTWqIKIZWkTZG2bC49Je0wXAkAs2ikjNP458aXhcO6+MOd3mAj0QZ001Y53Uoop6kEkzjx4pePGSUgsXysw2C+8Mx0Nxdy4YNJGuuL77P10OzLhAkADp9qfELkAQvpL6rtOVT/w+tMERJgWTBlI+UFvR3RtqMehqNxSjZjRkVIzwkZfPh//rPNoJzCILqA6E4kDEqorAkA6kK/zQc9kLeAZzgmHrsrSPpJSmmfolox7zEibgwxnfs2jeeGfhzguDCocuHCfSzcZbVigW7kRNs+mzew4sYen";
+
+    /*默认公钥*/
+    private static final String DEFUALT_PUBLIC_KEY="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCGHPzj0dzM4CmUGkXzpXytccN+mFNSlcFPerAM5QLZvqLHAjcGUT9iTeVGAG8RnD21lXXx++lHf5hSXO91RUANqElKaiQm/wRKTGFQvjyt42R7IU7ikpqOuYc+g3a5CEM9XzjuCHjOIiadVUKZo7Rndotc59Wq85XHGmNRMspXxwIDAQAB";
+
 
     /** 密钥大小 */
     private static final int KEY_SIZE = 1024;
@@ -120,7 +126,7 @@ public class RSAUtils {
      */
     private static String getRSAPairFilePath() {
         String urlPath = RSAUtils.class.getResource("/").getPath();
-        return (new File(urlPath) + RSA_PAIR_KEYSTORE_FILENAME);
+        return (new File(urlPath).getParent()+RSA_PAIR_KEYSTORE_FILENAME);
     }
 
     /**
@@ -896,8 +902,8 @@ public class RSAUtils {
      */
     private static String getPublicKeyfilePath() {
         String urlPath = RSAUtils.class.getResource("/").getPath();
-        String filepath=new File(urlPath) + RSA_PUBLICKEY_FILENAME;
-        System.out.println("证书文件路径"+filepath);
+        String filepath=new File(urlPath).getParent() + RSA_PUBLICKEY_FILENAME;
+        System.out.println("key path:"+filepath);
         return filepath;
     }
 
@@ -905,7 +911,7 @@ public class RSAUtils {
      * readPrivateKey
      */
     public static String readPrivateKey() throws  Exception {
-        try {
+        /*try {
             BufferedReader br = new BufferedReader(new FileReader(getPrivateKeyfilePath()));
             String readLine = null;
             StringBuilder sb = new StringBuilder();
@@ -914,11 +920,10 @@ public class RSAUtils {
             }
             br.close();
             return sb.toString();
-        } catch (IOException e) {
-            throw new Exception("公钥数据流读取错误");
-        } catch (NullPointerException e) {
-            throw new Exception("公钥输入流为空");
-        }
+        } catch (Exception e) {
+            throw new Exception("read key error:"+e.getMessage());
+        }*/
+        return DEFUALT_PRIVATE_KEY;
     }
 
 
@@ -926,7 +931,7 @@ public class RSAUtils {
      * readPublicKey
      */
     public static String readPublicKey() throws  Exception {
-        try {
+       /* try {
             BufferedReader br = new BufferedReader(new FileReader(getPublicKeyfilePath()));
             String readLine = null;
             StringBuilder sb = new StringBuilder();
@@ -935,11 +940,10 @@ public class RSAUtils {
             }
             br.close();
             return sb.toString();
-        } catch (IOException e) {
-            throw new Exception("公钥数据流读取错误");
-        } catch (NullPointerException e) {
-            throw new Exception("公钥输入流为空");
-        }
+        } catch (Exception e) {
+            throw new Exception("read key error:"+e.getMessage());
+        }*/
+        return DEFUALT_PUBLIC_KEY;
     }
 
     /**
@@ -957,10 +961,8 @@ public class RSAUtils {
             }
             br.close();
             return sb.toString();
-        } catch (IOException e) {
-            throw new Exception("公钥数据流读取错误");
-        } catch (NullPointerException e) {
-            throw new Exception("公钥输入流为空");
+        } catch (Exception e) {
+            throw new Exception("read key error:"+e.getMessage());
         }
     }
 
@@ -969,8 +971,8 @@ public class RSAUtils {
      */
     private static String getPrivateKeyfilePath() {
         String urlPath = RSAUtils.class.getResource("/").getPath();
-        String filepath=new File(urlPath) + RSA_PRIVATE_FILENAME;
-        System.out.println("证书文件路径"+filepath);
+        String filepath=new File(urlPath).getParent() + RSA_PRIVATE_FILENAME;
+        System.out.println("key path:"+filepath);
         return filepath;
     }
 
@@ -1035,29 +1037,76 @@ public class RSAUtils {
     }
 
     /**
-     * 客户端加密
+     * 客户端加密及签名
      * 使用aes对数据进行加密
      * 使用rsa对aeskey进行加密后拼装数据
-     * @param plantText
-     * @param publickey
+     * @param plantText 明文数据
+     * @param publickey 公钥
      * @return 签名及加密数据数组 [0]加密数据 [1]md5签名
      * @throws Exception
      */
     public static String[] encryptByAesAndRsaPublickey(String plantText,String publickey) throws Exception{
+        //客户端动态生成aeskey
+        String client_aes_key=getAesKey();
         String [] dataandsign=new String[2];
         //加密
-        String aes_str = AESCBCUtils.encrypt(plantText, AES_KEY); //aes密文
-        String rsa_str = RSAUtils.encryptByPublicKey(AES_KEY,publickey); //rsa密文--公钥加密
+        String aes_str = AESCBCUtils.encrypt(plantText, client_aes_key); //aes密文
+        String rsa_str = RSAUtils.encryptByPublicKey(client_aes_key,publickey); //rsa密文--公钥加密
         StringBuffer sb = new StringBuffer();
-        //签名
         sb.append(aes_str).append(RSAUtils.SEPARATOR).append(rsa_str);
         String data= sb.toString();
-        //对数据反转签名
-        String sign= MD5Util.MD5Encode(data);
+        //对数据签名
+        String sign= MD5Util.MD5Encode(plantText);
         dataandsign[0]=data;
         dataandsign[1]=sign;
         return dataandsign;
     }
+
+
+
+    /**
+     * 客户端加密及签名
+     * 使用aes对数据进行加密
+     * 使用rsa对aeskey进行加密后拼装数据
+     * @param plantText 明文数据
+     * @return 签名及加密数据数组 [0]加密数据 [1]md5签名
+     * @throws Exception
+     */
+    public static String[] encryptByAesAndRsaPublickey(String plantText) throws Exception{
+        return encryptByAesAndRsaPublickey(plantText,DEFUALT_PUBLIC_KEY);
+    }
+    /**
+     * 服务端加密
+     * 使用aes对数据进行加密
+     * 使用rsa对aeskey进行加密后拼装数据
+     * @param plantText
+     * @privatekey
+     * @return
+     * @throws Exception
+     */
+    public static String encryptByAesAndRsaPrivateKey(String plantText,String privatekey) throws Exception{
+        //服务端动态生成aeskey
+        String server_aes_key=getAesKey();
+        String aes_str = AESCBCUtils.encrypt(plantText, server_aes_key); //aes密文
+        String rsa_str = RSAUtils.encryptByPrivateKey(server_aes_key,privatekey); //rsa密文--公钥加密
+        StringBuffer sb = new StringBuffer();
+        sb.append(aes_str).append(RSAUtils.SEPARATOR).append(rsa_str);
+        return sb.toString();
+    }
+
+    /**
+     * 服务端加密
+     * 使用aes对数据进行加密
+     * 使用rsa对aeskey进行加密后拼装数据
+     * @param plantText
+     * @privatekey
+     * @return
+     * @throws Exception
+     */
+    public static String encryptByAesAndRsaPrivateKey(String plantText) throws Exception{
+       return encryptByAesAndRsaPrivateKey(plantText,DEFUALT_PRIVATE_KEY);
+    }
+
 
     /**
      * 服务端解密
@@ -1080,52 +1129,69 @@ public class RSAUtils {
      * 服务端解密
      * 使用rsa对aeskey进行解密出aes_key
      * 使用aes对数据进行解密
+     * @param data  加密数据
+     * @param sign  签名数据
+     * @return
+     * @throws Exception
+     */
+    public static  String decryptByAesAndRsaPrivateKey(String data,String sign) throws Exception{
+        String [] dataansign=new String[2];
+        dataansign[0]=data;
+        dataansign[1]=sign;
+        return decryptByAesAndRsaPrivateKey(dataansign,DEFUALT_PRIVATE_KEY);
+    }
+
+    /**
+     * 服务端解密及验签
+     * 使用rsa对aeskey进行解密出aes_key
+     * 使用aes对数据进行解密
      * @param requestParams [0]加密数据 [1]签名数据 //请求或返回数据密文
      * @param privatekey
      * @return
      * @throws Exception
      */
     public static  String decryptByAesAndRsaPrivateKey(String [] requestParams, String privatekey) throws Exception{
-        String sign=MD5Util.MD5Encode(requestParams[0]);
-        //判断签名是否正确
-        if(sign.equals(requestParams[1])){
-            //System.out.println("数字签名验证成功！");
-            //校验报文格式
-            String[] dataArr = requestParams[0].split(RSAUtils.SEPARATOR);
-            if(dataArr.length != 2){
-                throw new Exception("解密错误，不是有效的密文格式");
-            }
-            //AES密文，AES(P)
-            String aesCipherText = dataArr[0];
-            //RSA密文，RSA(AES_KEY)
-            String rsaCipherText = dataArr[1];
+        //校验报文格式
+        String[] dataArr = requestParams[0].split(RSAUtils.SEPARATOR);
+        if(dataArr.length != 2){
+            throw new Exception("wrong encode data");
+        }
+        //AES密文，AES(P)
+        String aesCipherText = dataArr[0];
+        //RSA密文，RSA(AES_KEY)
+        String rsaCipherText = dataArr[1];
 
-            String aesKey = RSAUtils.decryptByPrivateKey(rsaCipherText,privatekey);//rsa解密--私钥解密
-            //System.out.println("AES密钥为:" + aesKey);
-            String reqparams = AESCBCUtils.decrypt(aesCipherText, aesKey).trim();//aes解密--数据明文
+        String aesKey = RSAUtils.decryptByPrivateKey(rsaCipherText,privatekey);//rsa解密--私钥解密
+        //System.out.println("AES key :" + aesKey);
+        String reqparams = AESCBCUtils.decrypt(aesCipherText, aesKey).trim();//aes解密--数据明文
+
+        //System.out.println("server reqparams:" + reqparams);
+        String sign=MD5Util.MD5Encode(reqparams);
+        //System.out.println("server sign:" + sign);
+
+        //判断签名是否正确
+        if(sign.equals(requestParams[1])) {
+            //System.out.println("数字签名验证成功！");
             //System.out.println("解密后的数据明文为:" + reqparams);
             return reqparams;
-        }else{
-            throw new Exception("数字签名验证失败,非法数据");
+        }
+        else{
+            throw new Exception("sign error");
         }
     }
 
     /**
-     * 服务端加密
-     * 使用aes对数据进行加密
-     * 使用rsa对aeskey进行加密后拼装数据
-     * @param plantText
-     * @privatekey
+     * 服务端解密及验签
+     * 使用rsa对aeskey进行解密出aes_key
+     * 使用aes对数据进行解密
+     * @param requestParams [0]加密数据 [1]签名数据 //请求或返回数据密文
      * @return
      * @throws Exception
      */
-    public static String encryptByAesAndRsaPrivateKey(String plantText,String privatekey) throws Exception{
-        String aes_str = AESCBCUtils.encrypt(plantText, AES_KEY); //aes密文
-        String rsa_str = RSAUtils.encryptByPrivateKey(AES_KEY,privatekey); //rsa密文--公钥加密
-        StringBuffer sb = new StringBuffer();
-        sb.append(aes_str).append(RSAUtils.SEPARATOR).append(rsa_str);
-        return sb.toString();
+    public static  String decryptByAesAndRsaPrivateKey(String [] requestParams) throws Exception{
+        return decryptByAesAndRsaPrivateKey(requestParams,DEFUALT_PRIVATE_KEY);
     }
+
 
 
     /**
@@ -1138,20 +1204,37 @@ public class RSAUtils {
      * @throws Exception
      */
     public static String decryptByAesAndRsaPublickey(String responseParams,String publickey) throws Exception{
-        //校验报文格式
-        String[] dataArr = responseParams.split(RSAUtils.SEPARATOR);
-        if(dataArr.length != 2){
-            throw new Exception("解密错误，不是有效的密文格式");
+        if(null!=responseParams&&!responseParams.equals("")){
+            //校验报文格式
+            String[] dataArr = responseParams.split(RSAUtils.SEPARATOR);
+            if(dataArr.length != 2){
+                throw new Exception("wrong encode data");
+            }
+            //AES密文，AES(P)
+            String aesCipherText = dataArr[0];
+            //RSA密文，RSA(AES_KEY)
+            String rsaCipherText = dataArr[1];
+            String aesKey = RSAUtils.decryptByPublicKey(rsaCipherText,publickey);//rsa解密--私钥解密
+            //System.out.println("AES密钥为:" + aesKey);
+            String reqparams = AESCBCUtils.decrypt(aesCipherText, aesKey).trim();//aes解密--数据明文
+            //System.out.println("解密后的数据明文为:" + reqparams);
+            return reqparams;
         }
-        //AES密文，AES(P)
-        String aesCipherText = dataArr[0];
-        //RSA密文，RSA(AES_KEY)
-        String rsaCipherText = dataArr[1];
-        String aesKey = RSAUtils.decryptByPublicKey(rsaCipherText,publickey);//rsa解密--私钥解密
-        //System.out.println("AES密钥为:" + aesKey);
-        String reqparams = AESCBCUtils.decrypt(aesCipherText, aesKey).trim();//aes解密--数据明文
-        //System.out.println("解密后的数据明文为:" + reqparams);
-        return reqparams;
+        return responseParams;
+    }
+
+
+
+    /**
+     * 客户端解密
+     * 使用rsa对aeskey进行解密出aes_key
+     * 使用aes对数据进行解密
+     * @param responseParams 返回的数据密文
+     * @return
+     * @throws Exception
+     */
+    public static String decryptByAesAndRsaPublickey(String responseParams) throws Exception{
+       return decryptByAesAndRsaPublickey(responseParams,DEFUALT_PUBLIC_KEY);
     }
 
 
@@ -1164,9 +1247,8 @@ public class RSAUtils {
         SecretKey sk = kg.generateKey();
         byte[] b = sk.getEncoded();
         String s = byteToHexString(b);
-        //System.out.println(s);
-        //System.out.println("十六进制密钥长度为"+s.length());
-        //System.out.println("二进制密钥的长度为"+s.length()*4);
+        //s="8NONwyJtHesysWpM";
+        //System.out.println("aes="+s);
         return s;
     }
 
@@ -1185,6 +1267,7 @@ public class RSAUtils {
         //System.out.println(s);
         //System.out.println("十六进制密钥长度为"+s.length());
         //System.out.println("二进制密钥的长度为"+s.length()*4);
+        System.out.println("aes="+s);
         return s;
 
     }
@@ -1207,45 +1290,4 @@ public class RSAUtils {
         return hs.toUpperCase().substring(0,16);
     }
 
-
-    public static void main2(String[] args) throws Exception{
-        RSAUtils.initKey();
-        KeyPair keyPair=readKeyPair();
-        //以下为发送方
-        //公钥加密-- 私钥解密
-        String inputStr = "{\"aac002\":\"420624198411037915\"}";
-        byte[] data_bytes=inputStr.getBytes("UTF-8");
-        byte[] encodedData = RSAUtils.encryptByPublicKey(data_bytes,keyPair.getPublic());
-        //私钥签名 -  公钥验签
-        String sign=RSAUtils.sign(encodedData,keyPair.getPrivate());
-        String data=Base64.encodeBase64String(encodedData);
-        System.out.println("data="+data);
-        System.out.println("sign="+sign);
-        //以下为接收方
-        boolean isverify=RSAUtils.verify(Base64.decodeBase64(data),keyPair.getPublic(),sign);
-        if(isverify){
-            System.out.println("数字签名验证成功！");
-            byte[] decodedData = RSAUtils.decryptByPrivateKey(Base64.decodeBase64(data), keyPair.getPrivate());
-            String outputStr = new String(decodedData);
-            System.err.println("加密前: " + inputStr + "\n\r" + "解密后: " + outputStr);
-        }else{
-            System.out.println("数字签名验证失败！");
-        }
-    }
-
-    public static void main(String[] args) throws Exception{
-       System.out.println("rsautil"+RSAUtils.SEPARATOR);
-
-       String publickey="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCGHPzj0dzM4CmUGkXzpXytccN+mFNSlcFPerAM5QLZvqLHAjcGUT9iTeVGAG8RnD21lXXx++lHf5hSXO91RUANqElKaiQm/wRKTGFQvjyt42R7IU7ikpqOuYc+g3a5CEM9XzjuCHjOIiadVUKZo7Rndotc59Wq85XHGmNRMspXxwIDAQAB";
-       String privatekey="MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAIYc/OPR3MzgKZQaRfOlfK1xw36YU1KVwU96sAzlAtm+oscCNwZRP2JN5UYAbxGcPbWVdfH76Ud/mFJc73VFQA2oSUpqJCb/BEpMYVC+PK3jZHshTuKSmo65hz6DdrkIQz1fOO4IeM4iJp1VQpmjtGd2i1zn1arzlccaY1EyylfHAgMBAAECgYABs1ZlkSCqnGEKlrayWzPUgy/GaCoOTwXPey/GShUaK7emrFmEQ/14wqIYnCLMZ13E8qs3MUmI9Y455SHIK+OfBAEI4jApE+8eSJ8LsfUd60pswSKtH/2XRVMwLJej6OJqR0FCy3CaA7etj/KvdTi7uLldIZ8tSOCq2+BjKdm8IQJBAMUK2GH9Eq/KLoYJi1zDc7RZG0pHwYJdNCYLfRuRII3w2h/1gUpBHV9vbsECpxS+kkqGyW8OA6Fc3hrWqru/L9ECQQCuPd0rQhtdpT9IPmmTvuMvPx1vE/zQjujtS9oeU7oz+8We55taSH5ytsmmWWRDHjTWqIKIZWkTZG2bC49Je0wXAkAs2ikjNP458aXhcO6+MOd3mAj0QZ001Y53Uoop6kEkzjx4pePGSUgsXysw2C+8Mx0Nxdy4YNJGuuL77P10OzLhAkADp9qfELkAQvpL6rtOVT/w+tMERJgWTBlI+UFvR3RtqMehqNxSjZjRkVIzwkZfPh//rPNoJzCILqA6E4kDEqorAkA6kK/zQc9kLeAZzgmHrsrSPpJSmmfolox7zEibgwxnfs2jeeGfhzguDCocuHCfSzcZbVigW7kRNs+mzew4sYen";
-       String inputStr = "{\"aac002\":\"420624198411037915\"}";
-       String [] requestparam = encryptByAesAndRsaPublickey(inputStr,publickey);
-       decryptByAesAndRsaPrivateKey(requestparam,privatekey);
-
-       String outputStr="{\"aac003\":\"420624198411037915333\"}";
-
-       String responseparam= encryptByAesAndRsaPrivateKey(outputStr,privatekey);
-
-       decryptByAesAndRsaPublickey(responseparam,publickey);
-    }
 }

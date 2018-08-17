@@ -41,7 +41,7 @@ public class TextEditSuggestTag implements Tag {
 	private String clearbtn;
 	
 	// 校验规则
-   private String validate;
+    private String validate;
 	
 	//自定义回调函数
 	private String callback;
@@ -197,9 +197,9 @@ public class TextEditSuggestTag implements Tag {
 	     sb.append("<script type=\"text/javascript\">");
 	     sb.append("$(\"#"+property+"_name\").bsSuggest({");
 	     sb.append("url:contextPath+'/common/suggest/searchcode?keytype="+keytype+"&keyword=',");
-	     sb.append(" effectiveFields: ['showname','key','name'],");
+	     sb.append(" effectiveFields: ['showname','s_key','s_name'],");
 	     sb.append("getDataMethod: \"url\",");
-	     sb.append("effectiveFieldsAlias:{showname: \"全称\", key: \"代码\",name:\"名称\"},");
+	     sb.append("effectiveFieldsAlias:{showname: \"全称\", s_key: \"代码\",s_name:\"名称\"},");
 	     sb.append("fnPreprocessKeyword: function (keyword) {  ");
 	     sb.append("return rc.encodeURITwice(keyword);  ");
 	     sb.append(" }, ");
@@ -210,8 +210,8 @@ public class TextEditSuggestTag implements Tag {
 	     sb.append("allowNoKeyword:false,");
 	     sb.append("multiWord:false");
 	     sb.append("}).on('onSetSelectValue', function (e, keyword, data) {");
-	     sb.append("$('#"+property+"').val(keyword.id);");
-	     sb.append(" $('#"+property+"_name').html(keyword.key);");
+	     sb.append(" $('#"+property+"').val(keyword.id);");
+	     sb.append(" $('#"+property+"_name').html(keyword.s_key);");
 	     if(callback!=null){
 			  sb.append(callback+"(keyword.id)");
 		 }

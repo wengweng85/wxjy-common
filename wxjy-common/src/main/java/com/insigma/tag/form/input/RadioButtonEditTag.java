@@ -1,18 +1,15 @@
 package com.insigma.tag.form.input;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
+import com.insigma.common.util.CodeValueUtil;
+import com.insigma.common.util.StringUtil;
+import com.insigma.mvc.model.CodeValue;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import com.insigma.common.util.CodeValueUtil;
-import com.insigma.common.util.EhCacheUtil;
-import com.insigma.common.util.StringUtil;
-import com.insigma.mvc.model.CodeValue;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * 自定义标签之按钮式radio

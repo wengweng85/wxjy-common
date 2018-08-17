@@ -5,83 +5,86 @@ import org.apache.commons.codec.binary.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.Security;
 
 public class AESCBCUtils {
 
 	public static final String KEY_ALGORITHM = "AES";
-	// ¼ÓÃÜÄ£Ê½ÎªECB£¬Ìî³äÄ£Ê½ÎªNoPadding
-	public static final String CIPHER_ALGORITHM = "AES/CBC/NoPadding";
-	// ×Ö·û¼¯
+	// åŠ å¯†æ¨¡å¼
+	public static final String CIPHER_ALGORITHM = "AES/CBC/PKCS7Padding";
+	// å­—ç¬¦é›†
 	public static final String ENCODING = "UTF-8";
-	// ÏòÁ¿
+	// å‘é‡
 	public static final String IV_SEED = "1234567812345678";
 
 	/**
-	 * AES¼ÓÃÜËã·¨
+	 * AESåŠ å¯†ç®—æ³•
 	 *
-	 * @param str ÃÜÎÄ
-	 * @param key ÃÜkey
+	 * @param str å¯†æ–‡
+	 * @param key å¯†key
 	 * @return
 	 */
 	public static String encrypt(String str, String key) {
 		try {
 			if (str == null) {
-				System.out.println("AES¼ÓÃÜ³ö´í:KeyÎª¿Õnull");
+				System.out.println("AESåŠ å¯†å‡ºé”™:Keyä¸ºç©ºnull");
 				return null;
 			}
-			// ÅĞ¶ÏKeyÊÇ·ñÎª16Î»
+			// åˆ¤æ–­Keyæ˜¯å¦ä¸º16ä½
 			if (key.length() != 16) {
-				System.out.println("AES¼ÓÃÜ³ö´í:Key³¤¶È²»ÊÇ16Î»");
+				System.out.println("AESåŠ å¯†å‡ºé”™:Keyé•¿åº¦ä¸æ˜¯16ä½");
 				return null;
 			}
 			byte[] raw = key.getBytes(ENCODING);
 			SecretKeySpec skeySpec = new SecretKeySpec(raw, KEY_ALGORITHM);
+			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 			Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
 			IvParameterSpec iv = new IvParameterSpec(IV_SEED.getBytes(ENCODING));
 			cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
 			byte[] srawt = str.getBytes(ENCODING);
-			int len = srawt.length;
-			/* ¼ÆËã²¹¿Õ¸ñºóµÄ³¤¶È */
+			/*int len = srawt.length;
+			*//* è®¡ç®—è¡¥ç©ºæ ¼åçš„é•¿åº¦ *//*
 			while (len % 16 != 0)
 				len++;
 			byte[] sraw = new byte[len];
-			/* ÔÚ×îºó¿Õ¸ñ */
+			*//* åœ¨æœ€åç©ºæ ¼ *//*
 			for (int i = 0; i < len; ++i) {
 				if (i < srawt.length) {
 					sraw[i] = srawt[i];
 				} else {
 					sraw[i] = 32;
 				}
-			}
-			byte[] encrypted = cipher.doFinal(sraw);
+			}*/
+			byte[] encrypted = cipher.doFinal(srawt);
 			return formatString(new String(Base64.encodeBase64(encrypted), "UTF-8"));
 		} catch (Exception ex) {
-			System.out.println("AES¼ÓÃÜ³ö´í£º" + ex.toString());
+			System.out.println("AESåŠ å¯†å‡ºé”™ï¼š" + ex.toString());
 			return null;
 		}
 	}
 
 	/**
-	 * AES½âÃÜËã·¨
+	 * AESè§£å¯†ç®—æ³•
 	 *
-	 * @param str ÃÜÎÄ
-	 * @param key ÃÜkey
+	 * @param str å¯†æ–‡
+	 * @param key å¯†key
 	 * @return
 	 */
 	public static String decrypt(String str, String key) {
 		try {
-			// ÅĞ¶ÏKeyÊÇ·ñÕıÈ·
+			// åˆ¤æ–­Keyæ˜¯å¦æ­£ç¡®
 			if (key == null) {
-				System.out.println("AES½âÃÜ³ö´í:KeyÎª¿Õnull");
+				System.out.println("AESè§£å¯†å‡ºé”™:Keyä¸ºç©ºnull");
 				return null;
 			}
-			// ÅĞ¶ÏKeyÊÇ·ñÎª16Î»
+			// åˆ¤æ–­Keyæ˜¯å¦ä¸º16ä½
 			if (key.length() != 16) {
-				System.out.println("AES½âÃÜ³ö´í£ºKey³¤¶È²»ÊÇ16Î»");
+				System.out.println("AESè§£å¯†å‡ºé”™ï¼šKeyé•¿åº¦ä¸æ˜¯16ä½");
 				return null;
 			}
 			byte[] raw = key.getBytes(ENCODING);
 			SecretKeySpec skeySpec = new SecretKeySpec(raw, KEY_ALGORITHM);
+			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 			Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
 			IvParameterSpec iv = new IvParameterSpec(IV_SEED.getBytes(ENCODING));
 			cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
@@ -89,7 +92,7 @@ public class AESCBCUtils {
 			bytes = cipher.doFinal(bytes);
 			return new String(bytes, ENCODING);
 		} catch (Exception ex) {
-			System.out.println("AES½âÃÜ³ö´í£º" + ex.toString());
+			System.out.println("AESè§£å¯†å‡ºé”™ï¼š" + ex.toString());
 			return null;
 		}
 	}

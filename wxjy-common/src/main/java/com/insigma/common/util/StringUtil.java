@@ -177,4 +177,26 @@ public class StringUtil {
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }
+
+	/**
+	 * ×Ö·û´®´¦Àí
+	 */
+	public static String stripHtml(String content) {
+		if(content != null) {
+			// <p>¶ÎÂäÌæ»»Îª»»ÐÐ
+			content = content.replaceAll("<p.*?>", "");
+			content = content.replaceAll("<P.*?>", "");
+			content = content.replaceAll("<div.*?>", "");
+			content = content.replaceAll("<DIV.*?>", "");
+			content = content.replaceAll("<br\\s*/?>", "");
+			//&nbsp;Ìæ»»Îª¿Õ¸ñ
+			content = content.replaceAll("&nbsp;", " ");
+			content = content.replaceAll("\\<.*?>", "");
+			content = content.replaceAll("@", "");
+			content = content.replaceAll("\r\n", "");
+			content = content.replaceAll("\n", "");
+			content = content.trim();
+		}
+		return content;
+	}
 }

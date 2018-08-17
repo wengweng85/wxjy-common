@@ -6,12 +6,20 @@
     <groupId>com.insigma</groupId>
     <artifactId>wxjy-common</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.3</version>
+    <version>1.0.5-SNAPSHOT</version>
     <description>
         1.0.1 2018-4-28 更新RSAUtils方法更新加密方法
         1.0.2 修改RSAUtils将读取文件证书文件路径修改为class目录
         1.0.3 增加aes加密 签名 rsa相关算法
               数据加密解密使用aes算法 使用rsa算法对aes加密钥匙进行加密解密
+        1.0.4 修改加密及签名工具类 增加md5数据签名算法
+        1.0.5 修改wxjy-common-model版本为1.0.1
+              修改加密解密时aes为动态获取
+              将证书文件的读取位置修改为class的父目录兼容weblogic环境
+              增加fastdfs文件上传工具类
+        1.0.7 rc标签textedit中增加autocomplete属性
+        1.0.8 最新版本
+
     </description>
     <name>wxjy-common</name>
     <url>http://maven.apache.org</url>
@@ -30,8 +38,20 @@
         <dependency>
             <groupId>com.insigma</groupId>
             <artifactId>wxjy-common-model</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk16</artifactId>
+            <version>1.46</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.23.Final</version>
+        </dependency>
+
     </dependencies>
 
     <!-- nexus私服配置 -->
@@ -39,7 +59,7 @@
         <repository>
             <id>public</id>
             <name>maven-public</name>
-            <url>http://epsoft.tunnel.echomod.cn/repository/maven-public/</url>
+            <url>http://115.233.221.133:58081/repository/maven-public/</url>
         </repository>
     </repositories>
 
@@ -48,13 +68,13 @@
         <repository>
             <id>maven-releases</id>
             <name>maven-releases</name>
-            <url>http://epsoft.tunnel.echomod.cn/repository/maven-releases/</url>
+            <url>http://115.233.221.133:58081/repository/maven-releases/</url>
         </repository>
 
         <snapshotRepository>
             <id>maven-snapshots</id>
             <name>maven-snapshots</name>
-            <url>http://epsoft.tunnel.echomod.cn/repository/maven-snapshots/</url>
+            <url>http://115.233.221.133:58081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
     

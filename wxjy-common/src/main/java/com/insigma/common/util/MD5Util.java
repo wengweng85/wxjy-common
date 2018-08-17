@@ -35,7 +35,7 @@ public class MD5Util
     {
       resultString = new String(origin);
       MessageDigest md = MessageDigest.getInstance("MD5");
-      resultString = byteArrayToHexString(md.digest(resultString.getBytes()));
+      resultString = byteArrayToHexString(md.digest(resultString.getBytes("UTF-8")));
     }
     catch (java.lang.Exception md)
     {
@@ -44,6 +44,7 @@ public class MD5Util
   }
 
   public static void main(String[] args) {
+    String param="{\"app_user_syn_id\":\"123456\",\"mobile\":\"13767304752\",\"fullName\":\"ŒÃ…‹ª‘\",\"idNumber\":\"362326198702244545\"}";
     System.out.println(MD5Encode("123456"));
   }
 }

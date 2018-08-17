@@ -69,6 +69,8 @@ public class TextEditTag implements Tag {
 	private String onkeyup;
 	//提示语
 	private String placeholder;
+	//输入框自动填充开关
+	private String autocomplete;
 	
 	
 
@@ -230,6 +232,14 @@ public class TextEditTag implements Tag {
 		this.placeholder = placeholder;
 	}
 
+	public String getAutocomplete() {
+		return autocomplete;
+	}
+
+	public void setAutocomplete(String autocomplete) {
+		this.autocomplete = autocomplete;
+	}
+
 	@Override
 	public int doEndTag() throws JspException {
 		// TODO Auto-generated method stub
@@ -284,6 +294,9 @@ public class TextEditTag implements Tag {
 		 }
 		 if(!"".equals(maxlength)){
 			 sb.append(" maxlength=\""+maxlength+"\" ");
+		 }
+		 if(autocomplete != null){
+			sb.append(" autocomplete=\""+autocomplete+"\" ");
 		 }
 		 if(!"".equals(max)){
 			 sb.append(" max=\""+max+"\" ");

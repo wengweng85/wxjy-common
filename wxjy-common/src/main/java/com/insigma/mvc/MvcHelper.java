@@ -17,10 +17,6 @@ import com.insigma.dto.AjaxReturnMsg;
  */
 public class MvcHelper<T> {
 
-    public void maventest(){
-
-    }
-
     /**
      * 校验并返回对象
      *

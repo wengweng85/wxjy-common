@@ -1,4 +1,4 @@
-package com.insigma.common.sign;
+package com.insigma.common.rsa;
 
 import org.apache.commons.codec.binary.Base64;
 
