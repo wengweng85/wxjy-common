@@ -1,5 +1,7 @@
 package com.insigma.tag.form.input;
 
+import com.insigma.tag.form.constraint.TagConstraint;
+
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
@@ -10,7 +12,7 @@ import javax.servlet.jsp.tagext.Tag;
 /**
  * 自定义标签之文本自定义选择
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class TextEditIconTag implements Tag {
@@ -139,8 +141,8 @@ public class TextEditIconTag implements Tag {
 	     value=(value==null)?"":value;
 	     name_value=(name_value==null)?"":name_value;
 	     area=(area==null)?" ['70%', '90%']":area;
-	     title=(title==null)?label+"搜索框":title;
-	     cols=(cols==null)?"1,2":cols;
+	     title=(title==null)?label+"":title;
+	     cols=(cols==null)? TagConstraint.COLS:cols;
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);

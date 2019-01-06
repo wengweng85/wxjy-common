@@ -1,5 +1,7 @@
 package com.insigma.tag.form.input;
 
+import com.insigma.tag.form.constraint.TagConstraint;
+
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +13,7 @@ import javax.servlet.jsp.tagext.Tag;
 /**
  * 自定义标签之代码选择框为代码选择
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class TextEditIconCodeValueTag implements Tag {
@@ -146,10 +148,10 @@ public class TextEditIconCodeValueTag implements Tag {
 		//空值检查
 	     value=(value==null)?"":value;
 	     name_value=(name_value==null)?"":name_value;
-	     area=(area==null)?" ['40%', '80%']":area;
+	     area=(area==null)?"['50%', '80%']":area;
 	     url=(url==null)? contextPath+"/sys/codetype/toCodeValuesuggest"  :url;//如果url不输入有一个默认的地址
-	     title=(title==null)?label+"代码搜索框":title;
-	     cols=(cols==null)?"1,2":cols;
+	     title=(title==null)?label+"":title;
+	     cols=(cols==null)? TagConstraint.COLS:cols;
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
@@ -172,13 +174,16 @@ public class TextEditIconCodeValueTag implements Tag {
 	     if(codetype!=null){
 	    	 url+="&codetype="+codetype;
 	     }
-	     
 	     sb.append("<script type=\"text/javascript\">");
 	     sb.append(" function "+property+"_open_select(){");
-	     sb.append("layer.open({ type: 2,title: '"+title+"',shadeClose: false, shade: 0.8, area: "+area+",content: \""+url+"\" })}");
+	     sb.append(" var url='"+url+"';");
+	     sb.append(" var aab301_name_value=$('#"+property+"_name').val();");
+	     sb.append(" var select_val_name=rc.encodeURITwice(aab301_name_value);");
+	     sb.append(" url+='&select_val_name='+select_val_name;");
+	     sb.append(" layer.open({ type: 2,title: '"+title+"',shadeClose: false, shade: 0.8, area: "+area+",content: url})}");
 	     sb.append(" function "+property+"_callback(code,value){");
-	     sb.append("$('#"+property+"').val(code);");
-	     sb.append("$('#"+property+"_name').val(value);");
+	     sb.append(" $('#"+property+"').val(code);");
+	     sb.append(" $('#"+property+"_name').val(value);");
 	     if(callback!=null){
 			  sb.append(callback+"(code)");
 		 }

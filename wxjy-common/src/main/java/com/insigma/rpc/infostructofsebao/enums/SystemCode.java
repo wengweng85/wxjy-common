@@ -2,7 +2,7 @@ package com.insigma.rpc.infostructofsebao.enums;
 
 /**
  * 系统类型
- * @author wengsh
+ * @author admin
  *
  */
 public enum SystemCode{

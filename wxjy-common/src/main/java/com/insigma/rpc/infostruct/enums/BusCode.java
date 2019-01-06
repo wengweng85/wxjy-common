@@ -2,7 +2,7 @@ package com.insigma.rpc.infostruct.enums;
 
 /**
  * ½Ó¿ÚÃû³Æ
- * @author wengsh
+ * @author admin
  *
  */
 public enum BusCode {

@@ -8,7 +8,7 @@ import javax.jws.soap.SOAPBinding.Style;
 
 /**
  * MyWebService
- * @author wengsh
+ * @author admin
  *
  */
 @WebService 

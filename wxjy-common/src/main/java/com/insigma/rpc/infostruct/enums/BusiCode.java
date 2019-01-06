@@ -2,7 +2,7 @@ package com.insigma.rpc.infostruct.enums;
 
 /**
  * ÒµÎñ·µ»ØÂë
- * @author wengsh
+ * @author admin
  *
  */
 public enum BusiCode {

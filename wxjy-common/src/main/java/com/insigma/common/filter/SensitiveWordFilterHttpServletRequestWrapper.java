@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
  *
- * @author wengsh
+ * @author admin
  *
  */
 public class SensitiveWordFilterHttpServletRequestWrapper extends HttpServletRequestWrapper {

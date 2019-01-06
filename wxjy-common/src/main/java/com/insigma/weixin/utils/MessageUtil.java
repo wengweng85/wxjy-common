@@ -1,19 +1,5 @@
 package com.insigma.weixin.utils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-
 import com.insigma.weixin.pojo.ImageMessage;
 import com.insigma.weixin.pojo.News;
 import com.insigma.weixin.pojo.NewsMessage;
@@ -23,14 +9,29 @@ import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
  * 微信消息工具类
- * @author wengsh
+ * @author admin
  *
  */
 public class MessageUtil {
+
     /**
      * xml 转 map
      * @param request
@@ -49,6 +50,7 @@ public class MessageUtil {
             map.put(e.getName(), e.getText());
         }
         ins.close();
+        System.out.println("weixin send data:"+map.toString());
         return map;
     }
     

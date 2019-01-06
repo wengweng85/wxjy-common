@@ -11,11 +11,12 @@ import javax.servlet.jsp.tagext.Tag;
 
 import com.insigma.common.util.EhCacheUtil;
 import com.insigma.mvc.model.CodeValue;
+import com.insigma.tag.form.constraint.TagConstraint;
 
 /**
  * 自定义标签之radio
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class RadioEditTag implements Tag {
@@ -107,7 +108,7 @@ public class RadioEditTag implements Tag {
 	public int doStartTag() throws JspException {
 	     value=(value==null)?"":value;
 	     required=(required==null)?"":required;
-	     cols=(cols==null)?"1,2":cols;
+	     cols=(cols==null)? TagConstraint.COLS:cols;
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);

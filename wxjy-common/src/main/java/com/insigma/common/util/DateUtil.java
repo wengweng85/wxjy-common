@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.insigma.resolver.AppException;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * 时间格式的转换
@@ -408,4 +409,31 @@ public final class DateUtil {
         }
         return b;
     }
+
+   /**
+    * 时间往后加day天
+   * @author: liangy  
+   * @date 2018年11月26日
+   * @param @param dateString
+   * @param @param day
+   * @param @return    
+   * @return String   
+   * @throws
+    */
+   	public static String addDay(String dateString, int day){
+   		Date date = new Date();
+   		String pattern = "yyyy-MM-dd";
+         SimpleDateFormat format = new SimpleDateFormat(pattern);
+         if (StringUtils.isEmpty(dateString)) {
+         	return "";
+         }
+ 		try{
+ 			Date date1 = format.parse(dateString);
+ 			long time = date1.getTime()+(1000L * 60 * 60 * 24 * day);
+ 			if (time > 0) {
+ 				date.setTime(time);
+ 			}
+ 		}catch(Exception e){}
+ 		return format.format(date);
+   	}
 }

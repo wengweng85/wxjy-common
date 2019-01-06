@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by wengsh on 2015-01-09.
+ * Created by admin on 2015-01-09.
  * jackson日期转换修改默认的为long类型的转换
  */
 @Component

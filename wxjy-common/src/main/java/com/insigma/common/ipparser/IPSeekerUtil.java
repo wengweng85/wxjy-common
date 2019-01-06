@@ -2,7 +2,7 @@ package com.insigma.common.ipparser;
 
 /**
  * ip地址地区获取类
- * @author wengsh
+ * @author admin
  * @date 2014-11-21
  *
  */

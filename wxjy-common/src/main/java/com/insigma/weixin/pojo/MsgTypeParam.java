@@ -1,6 +1,6 @@
 package com.insigma.weixin.pojo;
 /**
- * 常用参数类
+ * 微信消息类型参数表
  * @TODO TODO
  */
 public class MsgTypeParam {

@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 报文结构类之返回接口，用于社保查询接口
- * @author wengsh
+ * @author admin
  *
  */
 @XmlRootElement

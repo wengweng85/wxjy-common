@@ -1,5 +1,7 @@
 package com.insigma.tag.form.input;
 
+import com.insigma.tag.form.constraint.TagConstraint;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
@@ -160,7 +162,7 @@ public class PopupSelectTag implements Tag {
         name_value = (name_value == null) ? "" : name_value;
         isminlevel=(isminlevel==null)?"false":isminlevel;
         required=(required==null)?"fasle":required;
-        cols=(cols==null)?"1,2":cols;
+        cols=(cols==null)? TagConstraint.COLS:cols;
         multiple=(multiple==null)?"false":multiple;
         size=(size==null)?"3":size;
         if(!Boolean.parseBoolean(multiple)){

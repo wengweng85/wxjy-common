@@ -6,7 +6,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.servlet.ServletContext;
 
 /**
- * Created by wengsh on 2014-12-19.
+ * Created by admin on 2014-12-19.
  */
 public class SpringUtil {
 

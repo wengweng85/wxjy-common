@@ -141,7 +141,8 @@ public class XLSXCovertCSVReader {
          * org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String,
          * java.lang.String, java.lang.String, org.xml.sax.Attributes)
          */
-        public void startElement(String uri, String localName, String name,Attributes attributes) throws SAXException {
+        @Override
+        public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
 
             if ("inlineStr".equals(name) || "v".equals(name)) {
                 vIsOpen = true;
@@ -197,6 +198,7 @@ public class XLSXCovertCSVReader {
          * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String,
          * java.lang.String, java.lang.String)
          */
+        @Override
         public void endElement(String uri, String localName, String name)throws SAXException {
 
             String thisStr = null;
@@ -311,6 +313,7 @@ public class XLSXCovertCSVReader {
          * Captures characters only if a suitable element is open. Originally
          * was just "v"; extended for inlineStr also.
          */
+        @Override
         public void characters(char[] ch, int start, int length)  throws SAXException {
             if (vIsOpen)
                 value.append(ch, start, length);

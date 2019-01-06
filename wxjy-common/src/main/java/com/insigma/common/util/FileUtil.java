@@ -1,20 +1,19 @@
 package com.insigma.common.util;
 
-import com.insigma.resolver.AppException;
-import org.apache.commons.lang.StringUtils;
-import org.xhtmlrenderer.pdf.ITextFontResolver;
-import org.xhtmlrenderer.pdf.ITextRenderer;
-
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.BaseFont;
-
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.apache.commons.lang.StringUtils;
+import org.xhtmlrenderer.pdf.ITextFontResolver;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -22,9 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /*
 Java IO 的一般使用原则 ： 
@@ -819,7 +815,7 @@ public class FileUtil {
 	
 	
 	/**
-	 * 
+	 *
 	 * @param inputFile 要增加水印的文件路径
 	 * @param imageFile 水印图片的路径
 	 * @param outputFile 文件生成路径
@@ -833,7 +829,7 @@ public class FileUtil {
 
             OutputStream os = new FileOutputStream(outputFile);
             PdfStamper stamper = new PdfStamper(reader, os);
-            
+
             com.itextpdf.text.pdf.BaseFont base = com.itextpdf.text.pdf.BaseFont.createFont(
 					basePath+"/WEB-INF/ftl/fonts/simsun.ttc,1", "Identity-H", true);// 使用系统字体
 			//BaseFont base = BaseFont.createFont("C:/WINDOWS/Fonts/SIMSUN.TTC,1", "Identity-H", true);// 使用系统字体
@@ -888,8 +884,8 @@ public class FileUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
+
 		/*try {
         PdfReader reader = new PdfReader(inputFile);
         OutputStream os = new FileOutputStream(outputFile);
@@ -923,7 +919,7 @@ public class FileUtil {
             under.beginText();
             under.setFontAndSize(base, 30);
             under.setColorFill(new BaseColor(238, 209, 212));
-           
+
             // 水印文字成45度角倾斜
             under.showTextAligned(Element.ALIGN_CENTER
                     , waterMarkName, x,
@@ -932,7 +928,7 @@ public class FileUtil {
             under.endText();
          // 添加水印图片
 			under.addImage(image);
-			
+
             under.setLineWidth(1f);
             under.stroke();
         }

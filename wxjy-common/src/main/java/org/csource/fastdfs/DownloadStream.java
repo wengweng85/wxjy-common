@@ -27,7 +27,8 @@ public class DownloadStream implements DownloadCallback
 	* @param bytes data bytes
 	* @return 0 success, return none zero(errno) if fail
 	*/
-	public int recv(long fileSize, byte[] data, int bytes)
+	@Override
+    public int recv(long fileSize, byte[] data, int bytes)
 	{
 		try
 		{

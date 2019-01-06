@@ -6,7 +6,7 @@
     <groupId>com.insigma</groupId>
     <artifactId>wxjy-common</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.7-SNAPSHOT</version>
     <description>
         1.0.1 2018-4-28 更新RSAUtils方法更新加密方法
         1.0.2 修改RSAUtils将读取文件证书文件路径修改为class目录
@@ -17,9 +17,10 @@
               修改加密解密时aes为动态获取
               将证书文件的读取位置修改为class的父目录兼容weblogic环境
               增加fastdfs文件上传工具类
-        1.0.7 rc标签textedit中增加autocomplete属性
-        1.0.8 最新版本
-
+              rc标签textedit中增加autocomplete属性
+              增加微信相关工具类
+        1.0.6 新增多线程及netty通讯相关功能 依赖 wxjy-common-model-1.0.2-SNAPSHOT
+        1.0.7 修改父为wxjy-parent-1.0.3
     </description>
     <name>wxjy-common</name>
     <url>http://maven.apache.org</url>
@@ -27,7 +28,7 @@
     <parent>
         <groupId>com.insigma</groupId>
         <artifactId>wxjy-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.3</version>
     </parent>
 
     <properties>
@@ -38,20 +39,15 @@
         <dependency>
             <groupId>com.insigma</groupId>
             <artifactId>wxjy-common-model</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk16</artifactId>
-            <version>1.46</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>4.1.23.Final</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/cn.jpush.api/jpush-client -->
+        <dependency>
+            <groupId>cn.jpush.api</groupId>
+            <artifactId>jpush-client</artifactId>
+            <version>3.3.9</version>
+        </dependency>
     </dependencies>
 
     <!-- nexus私服配置 -->

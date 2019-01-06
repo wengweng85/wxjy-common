@@ -10,7 +10,7 @@ import javax.servlet.jsp.tagext.Tag;
 /**
  * 自定义标签之隐藏框
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class HiddenEditTag implements Tag {

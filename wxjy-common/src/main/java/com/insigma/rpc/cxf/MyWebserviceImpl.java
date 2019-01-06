@@ -3,7 +3,7 @@ package com.insigma.rpc.cxf;
 
 /**
  * 接口实现
- * @author wengsh
+ * @author admin
  *
  */
 public class MyWebserviceImpl implements MyWebService { 

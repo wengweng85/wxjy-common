@@ -1,6 +1,7 @@
 package com.insigma.common.fastdfs;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.io.IOUtils;
 import org.csource.common.NameValuePair;
 import org.csource.fastdfs.*;
 import org.slf4j.LoggerFactory;
@@ -20,9 +21,6 @@ public class FastDFSClient {
 
 	static {
 		try {
-			//String filePath = new ClassPathResource("fdfs_client.properties").getFile().getAbsolutePath();;
-			//ClientGlobal.init(filePath);
-			//InputStream in = Fastdfs.class.getClassLoader().getResourceAsStream("fdfs_client.properties");
 			InputStream in = Fastdfs.class.getClassLoader().getResourceAsStream("fdfs_client.properties");
 			ClientGlobal.init(in);
 			trackerClient = new TrackerClient();
@@ -103,6 +101,55 @@ public class FastDFSClient {
 		}
 		return null;
 	}
+
+
+	/**
+	 * 下载
+	 */
+
+	public static byte[] downFile(String file_path) {
+		InputStream data = null;
+		try {
+			String remoteFileName = getFileNameFormFilePath(file_path);
+			String groupName = getGroupFormFilePath(file_path);
+			System.out.println(remoteFileName+","+groupName);
+			data = FastDFSClient.downFile(groupName, remoteFileName);
+			int size = data.available();
+			byte[] buffer = new byte[size];
+			IOUtils.read(data, buffer);
+			return buffer;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			IOUtils.closeQuietly(data);
+		}
+	}
+
+	/**
+	 * 根据fastDFS返回的path得到文件名
+	 * @param path fastDFS返回的path
+	 * @return
+	 */
+	public static String getFileNameFormFilePath(String path) {
+		String path_temp = path.substring(path.indexOf("/")+1);
+		path_temp = path_temp.substring(path_temp.indexOf("/")+1);
+		return path_temp;
+	}
+
+	/**
+	 * 根据fastDFS返回的path得到文件的组名
+	 * @param path fastDFS返回的path
+	 * @return
+	 */
+	public static String getGroupFormFilePath(String path){
+		return path.split("/")[1];
+	}
+
+
 
 	/**
 	 * deleteFile

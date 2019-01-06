@@ -29,7 +29,8 @@ public class DownloadFileWriter implements DownloadCallback
 		this.filename = filename;
 	}
 	
-	public int recv(long file_size, byte[] data, int bytes)
+	@Override
+    public int recv(long file_size, byte[] data, int bytes)
 	{
 		try
 		{
@@ -57,7 +58,8 @@ public class DownloadFileWriter implements DownloadCallback
 		return 0;
 	}
 	
-	protected void finalize() throws Throwable
+	@Override
+    protected void finalize() throws Throwable
 	{
 		if (this.out != null)
 		{

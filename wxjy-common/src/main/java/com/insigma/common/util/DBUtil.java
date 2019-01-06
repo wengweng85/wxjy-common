@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.servlet.ServletContext;
 
 /**
- * Created by wengsh on 2014-12-25.
+ * Created by admin on 2014-12-25.
  */
 public class DBUtil {
 

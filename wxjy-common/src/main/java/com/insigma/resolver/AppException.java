@@ -2,7 +2,7 @@ package com.insigma.resolver;
 
 /**
  * 自定义项目异常
- * @author wengsh
+ * @author admin
  * @date 2014-11-25
  *
  */

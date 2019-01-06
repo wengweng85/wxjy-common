@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 
 
 /**
- * Created by wengsh on 2014-12-17
+ * Created by admin on 2014-12-17
  */
 public final class CSRFTokenManager {
 

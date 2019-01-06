@@ -1,7 +1,7 @@
 package com.insigma.common.util;
 
 /**
- * Created by wengsh on 2018/3/30.
+ * Created by admin on 2018/3/30.
  * ÎÄ¼şÄ§Êı
  */
 public enum FileType {

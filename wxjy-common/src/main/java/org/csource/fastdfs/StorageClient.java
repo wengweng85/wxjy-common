@@ -55,7 +55,8 @@ public class StorageClient
 		* @param out output stream for writing file content
 		* @return 0 success, return none zero(errno) if fail
 		*/
-		public int send(OutputStream out) throws IOException
+		@Override
+        public int send(OutputStream out) throws IOException
 		{
 			out.write(this.fileBuff, this.offset, this.length);
 			
@@ -859,7 +860,9 @@ public class StorageClient
 			{
 				try
 				{
-					this.storageServer.close();
+					if(this.storageServer != null){
+						this.storageServer.close();
+					}
 				}
 				catch(IOException ex1)
 				{

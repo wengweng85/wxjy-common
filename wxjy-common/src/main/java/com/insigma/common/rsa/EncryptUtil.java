@@ -211,7 +211,7 @@ public class EncryptUtil {
 
     /**
      * 解密<br>
-     * 用私钥解密
+     * 用解密
      *
      * @param data
      * @param key

@@ -199,7 +199,8 @@ public class StructGroupStat extends StructBase
 * @param bs byte array
 * @param offset start offset
 */
-	public void setFields(byte[] bs, int offset)
+	@Override
+    public void setFields(byte[] bs, int offset)
 	{
 		this.groupName = stringValue(bs, offset, fieldsArray[FIELD_INDEX_GROUP_NAME]);
 		this.totalMB = longValue(bs, offset, fieldsArray[FIELD_INDEX_TOTAL_MB]);

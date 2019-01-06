@@ -6,7 +6,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * java查看当前系统内存使用情况
- * @author wengsh
+ * @author admin
  *
  */
 public class JvmMemoryUtil {

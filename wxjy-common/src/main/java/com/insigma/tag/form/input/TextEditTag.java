@@ -1,5 +1,7 @@
 package com.insigma.tag.form.input;
 
+import com.insigma.tag.form.constraint.TagConstraint;
+
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
@@ -10,7 +12,7 @@ import javax.servlet.jsp.tagext.Tag;
 /**
  * 自定义标签之文本框
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class TextEditTag implements Tag {
@@ -254,7 +256,7 @@ public class TextEditTag implements Tag {
 	     readonly=(readonly==null)?"":readonly;
 	     required=(required==null)?"":required;
 	     datamask=(datamask==null)?"":datamask;
-	     cols=(cols==null)?"1,2":cols;
+	     cols=(cols==null)? TagConstraint.COLS:cols;
 	     type=(type==null)?"text":type;
 	     maxlength=(maxlength==null)?"":maxlength;
 	     max=(max==null)?"":max;
@@ -274,7 +276,7 @@ public class TextEditTag implements Tag {
 
 	     String placeholders = placeholder;
 	     if(placeholder == null){
-			 placeholders = "请输入"+label;
+			 placeholders = ""+label;
 		 }
 
 	     JspWriter out = pageContext.getOut();

@@ -40,7 +40,8 @@ public class TestLoad
 		{
 		}
 		
-		public int recv(long file_size, byte[] data, int bytes)
+		@Override
+        public int recv(long file_size, byte[] data, int bytes)
 		{
 			return 0;
 		}
@@ -147,7 +148,8 @@ public class TestLoad
 			this.thread_index = index;
 		}
 		
-	  public void run()
+	  @Override
+      public void run()
     {
     	try
     	{
@@ -197,7 +199,8 @@ public class TestLoad
 			this.thread_index = index;
 		}
 		
-	  public void run()
+	  @Override
+      public void run()
     {
     	try
     	{
@@ -216,13 +219,13 @@ public class TestLoad
 						continue;
 					}
 					
-					synchronized (this.counter_lock)
+					synchronized (counter_lock)
 					{
 						TestLoad.total_download_count++;
 					}
     			if (downloader.downloadFile(file_id) == 0)
     			{
-    				synchronized (this.counter_lock)
+    				synchronized (counter_lock)
     				{
     					TestLoad.success_download_count++;
     				}
@@ -242,13 +245,13 @@ public class TestLoad
 						continue;
 					}
 					
-					synchronized (this.counter_lock)
+					synchronized (counter_lock)
 					{
 						TestLoad.total_download_count++;
 					}
     			if (downloader.downloadFile(file_id) == 0)
     			{
-    				synchronized (this.counter_lock)
+    				synchronized (counter_lock)
     				{
     					TestLoad.success_download_count++;
     				}

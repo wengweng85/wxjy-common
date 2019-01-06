@@ -13,7 +13,7 @@ import com.insigma.common.listener.AppConfig;
 
 /**
  * 自定义标签之表单选择框标签
- * @author wengsh
+ * @author admin
  *
  */
 public class CommonJsFooterTag implements Tag  {

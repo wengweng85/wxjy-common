@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * 个人基本信息接口dto
- * @author wengsh
+ * @author admin
  *
  */
 public class JkDTO {

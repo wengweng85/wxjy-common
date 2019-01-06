@@ -3,6 +3,9 @@ package com.insigma.common.email;
 
 import java.util.Properties;
 
+/**
+ * MailSenderInfo
+ */
 public class MailSenderInfo {
     private String mailServerHost;
     private String mailServerPort = "25";

@@ -41,7 +41,7 @@ public class StringFormatUtil {
 	}
 
 	public static void main(String [] a){
-		System.out.println(getFormatStringForEmail("wengshaohui@gmail.com"));
+		System.out.println(getFormatStringForEmail("adminaohui@gmail.com"));
 		System.out.println(getFormatStringForMobile("15958134215"));
 	}
 }

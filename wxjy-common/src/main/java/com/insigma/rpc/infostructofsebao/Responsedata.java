@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * xml转换类,用于社保查询接口
- * @author wengsh
+ * @author admin
  *
  */
 @XmlRootElement

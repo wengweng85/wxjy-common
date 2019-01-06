@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
- * Created by wengsh
+ * Created by admin
  */
 public class SHA1Util {
 

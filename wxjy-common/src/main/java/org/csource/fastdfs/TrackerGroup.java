@@ -108,7 +108,8 @@ public class TrackerGroup
 	  return null;
 	}
 
-	public Object clone()
+	@Override
+    public Object clone()
 	{
 		InetSocketAddress[] trackerServers = new InetSocketAddress[this.tracker_servers.length];
 		for (int i=0; i<trackerServers.length; i++)

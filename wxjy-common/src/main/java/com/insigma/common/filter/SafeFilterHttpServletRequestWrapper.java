@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * °²È«¹ýÂËÆ÷
- * @author wengsh
+ * @author admin
  *
  */
 public class SafeFilterHttpServletRequestWrapper extends HttpServletRequestWrapper {

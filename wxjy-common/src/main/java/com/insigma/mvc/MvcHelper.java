@@ -13,7 +13,7 @@ import com.insigma.dto.AjaxReturnMsg;
  * mvc帮助类，主要用于包装controller以及serviceimp层返回的数据
  * 将其包装成类返回成json格式
  *
- * @author wengsh
+ * @author admin
  */
 public class MvcHelper<T> {
 
@@ -108,7 +108,7 @@ public class MvcHelper<T> {
         return hashmap;
     }
 
-    
+
     /**
      * 成功返回
      *

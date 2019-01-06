@@ -14,7 +14,7 @@ import com.insigma.common.listener.AppConfig;
 /**
  * 自定义标签之css头加载
  *
- * @author wengsh
+ * @author admin
  */
 public class CommonCssHeaderTag implements Tag {
 

@@ -1,6 +1,7 @@
 package com.insigma.tag.form.input;
 
 import com.insigma.common.util.StringUtil;
+import com.insigma.tag.form.constraint.TagConstraint;
 
 import java.io.IOException;
 
@@ -12,7 +13,7 @@ import javax.servlet.jsp.tagext.Tag;
 /**
  * 自定义标签之日期选择框
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class DatePickerTag implements Tag {
@@ -140,7 +141,7 @@ public class DatePickerTag implements Tag {
 	     //空值检查
 		 validate=(validate==null)?"":validate;
 	     value=(value==null)?"":value;
-	     cols=(cols==null)?"1,2":cols;
+	     cols=(cols==null)? TagConstraint.COLS:cols;
 	     
 	     required=(required==null)?"":required;
 	     readonly=(readonly==null)?"false":readonly;
@@ -154,7 +155,7 @@ public class DatePickerTag implements Tag {
 	     boolean isreadonly=Boolean.parseBoolean(readonly);
 		String placeholders = placeholder;
 		if(placeholder == null){
-			placeholders = "请选择" + label;
+			placeholders = "" + label;
 		}
 	     
 	     JspWriter out = pageContext.getOut();
@@ -165,7 +166,7 @@ public class DatePickerTag implements Tag {
 	     }
 	     sb.append("</label>");
 	     sb.append("<div class=\"   col-xs-"+inputcol+"  col-sm-"+inputcol+"  \">");
-	     sb.append("<div class=\"input-group form_date date\">");
+	     sb.append("<div class=\"input-group form_date date\" id=\""+property+"_date\" >");
 		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\"  placeholder=\""+placeholders+"\"   validate=\""+validate+"\" class=\"form-control\"  ");
 		 
 		 if(isreadonly){
@@ -180,7 +181,7 @@ public class DatePickerTag implements Tag {
 		 sb.append(" > ");
 		 
 		 sb.append("<span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-remove\" ></span></span>");
-		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"fa fa-calendar\"></i></span>");
+		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"glyphicon glyphicon-calendar\"></i></span>");
 		 sb.append("</div>");
 		 sb.append("</div>");
 		 try {  

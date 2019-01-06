@@ -5,53 +5,56 @@ import org.junit.Test;
 
 import java.io.FileInputStream;
 import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class FastdfsClientTest {
 
 	/**
-	 * ÉÏ´«ÎÄ¼þ²âÊÔ
+	 * ä¸Šä¼ æ–‡ä»¶æµ‹è¯•
 	 */
 	@Test
 	public void testUpload(){
 		try{
 			long start=new Date().getTime();
-			for(int i=0;i<100;i++){
+			for(int i=0;i<10;i++){
 				Fastdfs fastdfs=Fastdfs.getInstance();
-				String filepath="d:/642.jpg";
-				FileInputStream input=new FileInputStream(filepath);
-				byte[] byt = new byte[input.available()];
-				input.read(byt);
-				fastdfs.uploadFile("group1",byt,"jpg");
+				String filepath="d:/test.jpg";
+				fastdfs.uploadFile(filepath);
 			}
-
 			long end=new Date().getTime();
-			System.out.println("ºÄ·Ñ:"+(end-start)+"ºÁÃë");
+			System.out.println("è€—è´¹:"+(end-start)+"æ¯«ç§’");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
+
+	//@Test
+	public void testMultiThreadUpload(){
+		
+	}
+
 	/**
-	 * ÉÏ´«Ö÷´ÓÎÄ¼þ²âÊÔ
+	 * ä¸Šä¼ ä¸»ä»Žæ–‡ä»¶æµ‹è¯•
 	 */
-	@Test
+	//@Test
 	public void testSlaveUpload(){
 		try{
 			long start=new Date().getTime();
 			Fastdfs fastdfs=Fastdfs.getInstance();
-			String filePath="d:/2.jpg";
+			String filePath="d:/test.jpg";
 			String result=fastdfs.uploadFile(filePath);
 			System.out.println(result);
 			long end=new Date().getTime();
-			System.out.println("ºÄ·Ñ:"+(end-start)+"ºÁÃë");
+			System.out.println("è€—è´¹:"+(end-start)+"æ¯«ç§’");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * ÏÂÔØ²âÊÔ
+	/**	 * ä¸‹è½½æµ‹è¯•
 	 */
 	//@Test
 	public void testDownload(){
@@ -61,16 +64,16 @@ public class FastdfsClientTest {
 			String downloadfilepath="/group1/M00/00/00/Cr6OBVnxa5KADbNVB7jLnZd7Z5I048.zip";
 			fastdfs.downloadFile(downloadfilepath);
 			long end=new Date().getTime();
-			System.out.println("ºÄ·Ñ:"+(end-start)+"ºÁÃë");
+			System.out.println("è€—è´¹:"+(end-start)+"æ¯«ç§’");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * É¾³ý²âÊÔ
+	 * åˆ é™¤æµ‹è¯•
 	 */
-	@Test
+	//@Test
 	public void testDelete(){
 		try{
 			long start=new Date().getTime();
@@ -78,10 +81,30 @@ public class FastdfsClientTest {
 			String downloadfilepath="/group1/M00/00/00/Cr6OBFn8H8SADrRFB7jLnZd7Z5I022.zip";
 			fastdfs.deleteFile(downloadfilepath);
 			long end=new Date().getTime();
-			System.out.println("ºÄ·Ñ:"+(end-start)+"ºÁÃë");
+			System.out.println("è€—è´¹:"+(end-start)+"æ¯«ç§’");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
+	
+	/*public static void main(String [] args){
+		final Fastdfs fastdfs=Fastdfs.getInstance();
+		final String filepath="d:/test.jpg";
+		ExecutorService executorService=Executors.newFixedThreadPool(10);
+		for(int i=0;i<10;i++){
+			executorService.execute(new Runnable() {
+				@Override
+				public void run() {
+					try{
+						long start=new Date().getTime();
+						fastdfs.uploadFile(filepath);
+						long end=new Date().getTime();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+			});
+		}
+	}*/
 
 }

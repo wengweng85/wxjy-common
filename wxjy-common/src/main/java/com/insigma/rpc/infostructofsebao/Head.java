@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 用于社保查询接口
- * @author wengsh
+ * @author admin
  *
  */
 @XmlRootElement

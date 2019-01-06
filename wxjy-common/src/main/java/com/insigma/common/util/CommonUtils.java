@@ -1,6 +1,8 @@
 package com.insigma.common.util;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.net.MalformedURLException;
 
 public class CommonUtils {
 	/**
@@ -23,5 +25,26 @@ public class CommonUtils {
 			}
 		}
 		return file.getName();
+	}
+
+	/*
+	 * 获取项目的根目录
+	 * 因为tomcat和weblogic获取的根目录不一致，所以需要此方法
+	 */
+	public static String getWebRootUrl(HttpServletRequest request) {
+		String fileDirPath = request.getSession().getServletContext().getRealPath("/");
+		if (fileDirPath == null) {
+			//如果返回为空，则表示服务器为weblogic，则需要使用另外的方法
+			try {
+				fileDirPath = request.getSession().getServletContext().getResource("/").getFile() + "/wxjy-api/WEB_INF/";
+				System.out.print("Weblogic获取项目的根目录:"+fileDirPath);
+				return fileDirPath;
+			} catch (MalformedURLException e) {
+				System.out.print("获取项目的根目录出错！");
+			}
+		} else {
+			fileDirPath += "/wxjy-api/WEB_INF/";
+		}
+		return fileDirPath;
 	}
 }

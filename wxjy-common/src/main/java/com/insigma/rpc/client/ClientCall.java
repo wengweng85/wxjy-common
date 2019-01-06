@@ -17,7 +17,7 @@ import com.insigma.rpc.infostructofsebao.Response;
 /**
  * 调用服务
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class ClientCall {

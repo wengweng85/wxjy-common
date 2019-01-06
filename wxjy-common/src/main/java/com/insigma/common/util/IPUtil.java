@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * ip地址工具类
  *
- * @author wengsh
+ * @author admin
  * @date 2012-4-28
  */
 public class IPUtil {

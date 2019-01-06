@@ -1,5 +1,7 @@
 package com.insigma.tag.form.input;
 
+import com.insigma.tag.form.constraint.TagConstraint;
+
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
@@ -11,7 +13,7 @@ import javax.servlet.jsp.tagext.Tag;
  * 自定义标签之checkbox switch选择
  * 主要用于是否选择框
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class CheckboxSwitchEditTag implements Tag {
@@ -82,7 +84,7 @@ public class CheckboxSwitchEditTag implements Tag {
 	@Override
 	public int doStartTag() throws JspException {
 	     value=(value==null)?"":value;
-	     cols=(cols==null)?"1,2":cols;
+	     cols=(cols==null)? TagConstraint.COLS:cols;
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
 	     int inputcol=Integer.parseInt(col[1]);

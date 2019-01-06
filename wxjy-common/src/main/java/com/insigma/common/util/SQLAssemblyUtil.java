@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * sql语句拼装工具类
- * @author wengsh
+ * @author admin
  *
  */
 public class SQLAssemblyUtil {

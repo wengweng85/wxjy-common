@@ -1,5 +1,7 @@
 package com.insigma.tag.form.input;
 
+import com.insigma.tag.form.constraint.TagConstraint;
+
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
@@ -10,7 +12,7 @@ import javax.servlet.jsp.tagext.Tag;
 /**
  * 自定义标签之文本suggest搜索
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class TextEditSuggestTag implements Tag {
@@ -157,7 +159,7 @@ public class TextEditSuggestTag implements Tag {
 	     //空值检查
 	     value=(value==null)?"":value;
 	     name_value=(name_value==null)?value:name_value;
-	     cols=(cols==null)?"1,2":cols;
+	     cols=(cols==null)? TagConstraint.COLS:cols;
 	     
 	     validate=(validate==null)?"":validate;
 	     required=(required==null)?"":required;

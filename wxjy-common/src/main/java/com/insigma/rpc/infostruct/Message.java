@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 报文结构
- * @author wengsh
+ * @author admin
  */
 @XmlRootElement(name="PACKET")
 @XmlAccessorType(XmlAccessType.FIELD)

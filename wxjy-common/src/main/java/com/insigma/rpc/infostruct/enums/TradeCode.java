@@ -2,7 +2,7 @@ package com.insigma.rpc.infostruct.enums;
 
 /**
  * ½»Ò×·µ»ØÂë
- * @author wengsh
+ * @author admin
  *
  */
 public enum TradeCode {

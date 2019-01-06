@@ -22,7 +22,8 @@ public class SensitiveWordFilter extends HttpServlet implements Filter {
 	private static final long serialVersionUID = 5286703103846683570L;
 	
 
-	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,FilterChain filterchain) throws IOException, ServletException {
+	@Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterchain) throws IOException, ServletException {
 		 HttpServletRequest request = (HttpServletRequest) servletRequest;
 	     HttpServletResponse response = (HttpServletResponse) servletResponse;
         /**	

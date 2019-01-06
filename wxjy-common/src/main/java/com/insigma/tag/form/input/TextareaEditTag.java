@@ -10,7 +10,7 @@ import javax.servlet.jsp.tagext.Tag;
 /**
  * 自定义标签之文本域框
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class TextareaEditTag implements Tag {
@@ -215,7 +215,7 @@ public class TextareaEditTag implements Tag {
 
 		String placeholders = placeholder;
 		if(placeholder == null){
-			placeholders = "请输入"+label;
+			placeholders = ""+label;
 		}
 		JspWriter out = pageContext.getOut();
 		StringBuffer sb=new StringBuffer();

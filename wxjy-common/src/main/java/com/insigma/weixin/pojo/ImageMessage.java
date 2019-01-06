@@ -1,5 +1,9 @@
 package com.insigma.weixin.pojo;
 
+/**
+ * ImageMessage
+ * Œ¢–≈Õº∆¨–≈œ¢
+ */
 public class ImageMessage extends BaseMessage{
 
     private Image Image;//

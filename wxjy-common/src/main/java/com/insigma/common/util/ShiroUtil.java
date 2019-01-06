@@ -1,35 +1,30 @@
 package com.insigma.common.util;
 
-import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.junit.Test;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 
+/**
+ * ShiroUtil
+ */
 public class ShiroUtil {
-    @Test
-    public void test(){
-        String str1 = "hello";
-        String salt = "123";
-        String md5Str1 = new Md5Hash(str1, salt).toString();
-        System.out.println("MD5ֵ1��" + md5Str1);
-        //�����԰�MD5���ܺ��ֵ��ת��Base64��16���Ƶı�����ʽ
-        String md5Str2 = new Md5Hash(str1, salt).toBase64();
-        String md5Str3 = new Md5Hash(str1, salt).toHex();
-        System.out.println("MD5ֵ2��" + md5Str2);
-        System.out.println("MD5ֵ3��" + md5Str3);
-        //������ָ�����ܴ�������ɢ�м���3��
-        String md5Str4 = new Md5Hash(str1, salt, 3).toString();
-        System.out.println("MD5ֵ4��" + md5Str4);
-        
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        
-        //ʹ��SHA256�����㷨
-        String shaStr1 = new Sha256Hash(str1,salt).toString();
-        String shaStr2 = new Sha256Hash(str1, salt).toBase64();
-        String shaStr3 = new Sha256Hash(str1, salt).toHex();
-        String shaStr4 = new Sha256Hash(str1, salt,3).toString();
-        System.out.println("SHA256ֵ1��" + shaStr1);
-        System.out.println("SHA256ֵ2��" + shaStr2);
-        System.out.println("SHA256ֵ3��" + shaStr3);
-        System.out.println("SHA256ֵ4��" + shaStr4);
+    public static void main(String[] args) {
+        String password = md5("123456", "WHLH");
+        System.out.println(password);
+        //加密后的结果
+        //3bcbb857c763d1429a24959cb8de2593
     }
+
+    public static final String md5(String password, String salt){
+        //加密方式
+        String hashAlgorithmName = "MD5";
+        //盐：为了即使相同的密码不同的盐加密后的结果也不同
+        ByteSource byteSalt = ByteSource.Util.bytes(salt);
+        //密码
+        Object source = password;
+        //加密次数
+        int hashIterations = 1024;
+        SimpleHash result = new SimpleHash(hashAlgorithmName, source, byteSalt, hashIterations);
+        return result.toString();
+    }
+
 }

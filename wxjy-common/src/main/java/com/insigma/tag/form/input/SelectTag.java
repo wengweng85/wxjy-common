@@ -10,11 +10,12 @@ import javax.servlet.jsp.tagext.Tag;
 
 import com.insigma.common.util.EhCacheUtil;
 import com.insigma.mvc.model.CodeValue;
+import com.insigma.tag.form.constraint.TagConstraint;
 
 /**
  * 自定义标签之表单选择框标签
  *
- * @author wengsh
+ * @author admin
  */
 public class SelectTag implements Tag {
 
@@ -264,7 +265,7 @@ public class SelectTag implements Tag {
         readonly = (readonly == null) ? "" : readonly;
         codetype = (codetype == null) ? "" : codetype;
         filter = (filter == null) ? "" : filter;
-        cols = (cols == null) ? "1,2" : cols;
+        cols = (cols == null) ? TagConstraint.COLS : cols;
         size = (size == null) ? "8" : size;
         hiddennull = (hiddennull == null) ? "false" : hiddennull;
 
@@ -278,7 +279,7 @@ public class SelectTag implements Tag {
         boolean isdynamic = Boolean.parseBoolean(dynamic);
         String placeholders = placeholder;
 		if(placeholder == null){
-			placeholders = "请选择" + label;
+			placeholders = "" + label;
 		}
         JspWriter out = pageContext.getOut();
         StringBuffer sb = new StringBuffer();

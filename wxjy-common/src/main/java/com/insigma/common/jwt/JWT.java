@@ -11,7 +11,7 @@ import com.auth0.jwt.internal.com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * jwtπ§æﬂ¿‡
  *
- * @author wengsh
+ * @author admin
  */
 public class JWT {
 

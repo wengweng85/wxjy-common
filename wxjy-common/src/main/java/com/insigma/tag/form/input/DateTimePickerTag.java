@@ -1,5 +1,7 @@
 package com.insigma.tag.form.input;
 
+import com.insigma.tag.form.constraint.TagConstraint;
+
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
@@ -10,7 +12,7 @@ import javax.servlet.jsp.tagext.Tag;
 /**
  * 自定义标签之日期时间选择框
  * 
- * @author wengsh
+ * @author admin
  *
  */
 public class DateTimePickerTag implements Tag {
@@ -114,7 +116,7 @@ public class DateTimePickerTag implements Tag {
 	     //空值检查
 		 validate=(validate==null)?"":validate;
 	     value=(value==null)?"":value;
-	     cols=(cols==null)?"1,2":cols;
+	     cols=(cols==null)? TagConstraint.COLS:cols;
 	     required=(required==null)?"":required;
 	     readonly=(readonly==null)?"false":readonly;
 	     
@@ -136,14 +138,14 @@ public class DateTimePickerTag implements Tag {
 	     sb.append("</label>");
 	     sb.append("<div class=\"  col-xs-"+inputcol+"  col-sm-"+inputcol+"  \">");
 	     sb.append("<div class=\"input-group form_datetime date\">");
-		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\" value=\""+value+"\"  placeholder=\"请选择"+label+"\"    validate=\""+validate+"\" class=\"form-control\" ");
+		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\" value=\""+value+"\"  placeholder=\""+label+"\"    validate=\""+validate+"\" class=\"form-control\" ");
 		 if(isreadonly){
 			 sb.append(" readonly=\"readonly\" ");
 		 }
 		 sb.append(" > ");
 		 
 		 sb.append("<span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-remove\" ></span></span>");
-		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"fa fa-calendar\"></i></span>");
+		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"glyphicon glyphicon-th\"></i></span>");
 		 sb.append("</div>");
 		 sb.append("</div>");
 		 try {  

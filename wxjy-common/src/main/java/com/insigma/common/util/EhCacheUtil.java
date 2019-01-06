@@ -2,13 +2,16 @@ package com.insigma.common.util;
 
 import java.io.InputStream;
 
+import com.auth0.jwt.internal.org.apache.commons.lang3.StringUtils;
+
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
 /**
  * EhCacheUtil
  *
- * @author wengsh
+ * @author admin
  * @version 1.0
  * @date 2016-07-23
  */
@@ -39,5 +42,28 @@ public class EhCacheUtil {
     	}else{
     		return null;
     	}
+    }
+
+    /**
+     * 将对象暂时加入缓存(很鸡肋的方法,只为适配前端select插件)
+    * @author: liangy  
+    * @date 2018年11月30日
+    * @param @param key
+    * @param @param object
+    * @param @return    
+    * @return boolean   
+    * @throws
+     */
+    public static boolean setParamFromCache(String key, Object object){
+    	Cache cache = EhCacheUtil.getManager().getCache("webcache"); 
+    	if (StringUtils.isNotBlank(key) && object != null && cache != null) {
+    		Element element = new Element(key, object); 
+        	cache.put(element);
+        	if (getParamFromCache(key) != null) {
+        		return true;
+        	}
+        	return false;
+    	}
+    	return false;
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="beanPostProcessor" class="com.insigma.spring.MyBeanPostProcessor"></bean>
+    <bean id="instantiationAwareBeanPostProcessor" class="com.insigma.spring.MyInstantiationAwareBeanPostProcessor"></bean>
+    <bean id="beanFactoryPostProcessor" class="com.insigma.spring.MyBeanFactoryPostProcessor"></bean>
+    <bean id="lifeCycle" class="com.insigma.spring.LifeCycle" init-method="myInit" destroy-method="myDestory" scope="prototype">
+        <property name="name" value="cuiyw1"></property>
+    </bean>
+
+    <bean id="hello" class="com.insigma.spring.HelloWorld" scope="prototype">
+        <property name="info" value="Hello,This is my first Spring Application!" ></property>
+    </bean>
+
+    <!-- 属性注入 -->
+    <bean id="car" class="com.insigma.spring.Car">
+        <property name="maxSpeed" value="200"></property>
+        <property name="brand" value="红旗CA72"></property>
+        <property name="price" value="200000.00"></property>
+    </bean>
+
+    <!-- 构造函数注入(按类型匹配) -->
+    <bean id="car1" class="com.insigma.spring.Car">
+        <constructor-arg type="int" value="300"></constructor-arg>
+        <constructor-arg type="java.lang.String" value="宝马"></constructor-arg>
+        <constructor-arg type="double" value="300000.00"></constructor-arg>
+    </bean>
+
+
+</beans>

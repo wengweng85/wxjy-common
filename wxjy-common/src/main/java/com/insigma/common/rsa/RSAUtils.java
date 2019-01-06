@@ -1,6 +1,7 @@
 package com.insigma.common.rsa;
 
 import com.insigma.common.util.MD5Util;
+import com.insigma.resolver.AppException;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
@@ -14,9 +15,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import java.io.*;
 import java.math.BigInteger;
 import java.security.*;
@@ -684,7 +683,7 @@ public class RSAUtils {
      * @return
      * @throws Exception
      */
-    public static String decryptByPublicKey(String encodedata, String key) throws Exception {
+    public static String decryptByPublicKey(String encodedata, String key) throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
        return  new String(decryptByPublicKey(Base64.decodeBase64(encodedata),key));
     }
 
@@ -709,7 +708,7 @@ public class RSAUtils {
      * @return
      * @throws Exception
      */
-    public static byte[] decryptByPublicKey(byte[] data, String key) throws Exception {
+    public static byte[] decryptByPublicKey(byte[] data, String key) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         // 对密钥解密
         byte[] keyBytes = Base64.decodeBase64(key);
 
@@ -743,7 +742,7 @@ public class RSAUtils {
      * @return
      * @throws Exception
      */
-    public static byte[] encryptByPublicKey(byte[] data, String key) throws Exception {
+    public static byte[] encryptByPublicKey(byte[] data, String key) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         // 对公钥解密
         byte[] keyBytes = Base64.decodeBase64(key);
 
@@ -776,7 +775,7 @@ public class RSAUtils {
      * @return
      * @throws Exception
      */
-    public static String encryptByPublicKey(String data, String key) throws Exception {
+    public static String encryptByPublicKey(String data, String key) throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         return Base64.encodeBase64String(encryptByPublicKey(data.getBytes(), key));
     }
 
@@ -930,19 +929,7 @@ public class RSAUtils {
     /**
      * readPublicKey
      */
-    public static String readPublicKey() throws  Exception {
-       /* try {
-            BufferedReader br = new BufferedReader(new FileReader(getPublicKeyfilePath()));
-            String readLine = null;
-            StringBuilder sb = new StringBuilder();
-            while ((readLine = br.readLine()) != null) {
-                sb.append(readLine);
-            }
-            br.close();
-            return sb.toString();
-        } catch (Exception e) {
-            throw new Exception("read key error:"+e.getMessage());
-        }*/
+    public static String readPublicKey(){
         return DEFUALT_PUBLIC_KEY;
     }
 
@@ -1045,7 +1032,7 @@ public class RSAUtils {
      * @return 签名及加密数据数组 [0]加密数据 [1]md5签名
      * @throws Exception
      */
-    public static String[] encryptByAesAndRsaPublickey(String plantText,String publickey) throws Exception{
+    public static String[] encryptByAesAndRsaPublickey(String plantText,String publickey) throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         //客户端动态生成aeskey
         String client_aes_key=getAesKey();
         String [] dataandsign=new String[2];
@@ -1203,12 +1190,12 @@ public class RSAUtils {
      * @return
      * @throws Exception
      */
-    public static String decryptByAesAndRsaPublickey(String responseParams,String publickey) throws Exception{
+    public static String decryptByAesAndRsaPublickey(String responseParams,String publickey) throws AppException, NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         if(null!=responseParams&&!responseParams.equals("")){
             //校验报文格式
             String[] dataArr = responseParams.split(RSAUtils.SEPARATOR);
             if(dataArr.length != 2){
-                throw new Exception("wrong encode data");
+                throw new AppException("wrong encode data");
             }
             //AES密文，AES(P)
             String aesCipherText = dataArr[0];

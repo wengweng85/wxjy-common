@@ -13,7 +13,7 @@ import org.csource.fastdfs.TrackerServer;
 
 /**
  * fastdfs文件上传服务
- * @author wengsh
+ * @author admin
  *
  */
 public class Fastdfs{
@@ -48,7 +48,7 @@ public class Fastdfs{
 				storageClient = new StorageClient(trackerServer,   storageServer);
 				trackerServer.close();
 			}catch(Exception e){
-				System.out.println("读取配置文件失败");
+				//System.out.println("读取配置文件失败");
 				e.printStackTrace();
 			}
 		}

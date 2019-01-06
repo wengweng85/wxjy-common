@@ -1,5 +1,8 @@
 package com.insigma.weixin.pojo;
 
+/**
+ * 微信音乐类
+ */
 public class Music {
     // 音乐名称
     private String Title;

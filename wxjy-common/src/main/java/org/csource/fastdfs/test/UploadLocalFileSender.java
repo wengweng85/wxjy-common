@@ -32,7 +32,8 @@ public class UploadLocalFileSender implements UploadCallback
 	* @param out output stream for writing file content
 	* @return 0 success, return none zero(errno) if fail
 	*/
-	public int send(OutputStream out) throws IOException
+	@Override
+    public int send(OutputStream out) throws IOException
 	{
 			FileInputStream fis;
 			int readBytes;
